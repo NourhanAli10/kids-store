@@ -4756,7 +4756,7 @@ input::-ms-clear {
     border-radius: 0.375rem; }
 
 .rev-f1__review {
-  max-width: 691px; }
+  width: 100%; }
 
 .review-o {
   padding: 1rem 0;

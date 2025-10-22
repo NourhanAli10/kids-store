@@ -100,7 +100,9 @@ Route::controller(CheckoutController::class)->group( function() {
 
 
 Route::controller(ReviewController::class)->group(function() {
-    Route::post('/products/{product}/reviews', 'store')->name('reviews.store');
+    Route::post('products/{product}/reviews', 'store')->name('reviews.store');
+    Route::put('reviews/{id}/update', 'update')->name('reviews.update');
+    Route::delete('reviews/{id}/delete', 'destroy')->name('reviews.destroy');
 });
 
 // *******************Reviews******************

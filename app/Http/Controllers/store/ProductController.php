@@ -14,7 +14,14 @@ class ProductController extends Controller
         $colors = $product->colors;
         $relatedProducts = $this->RelatedProduct($product);
         $reviews = $product->reviews;
-        return view('store.product-detail', compact('product', 'colors', 'reviews', 'relatedProducts'));
+        $totalReviews = $reviews->count();
+        $reviewsAvg = $reviews->avg('rating');
+        return view('store.product-detail', compact('product',
+        'colors',
+        'reviews',
+        'relatedProducts',
+        'totalReviews',
+        'reviewsAvg'));
     }
 
 
