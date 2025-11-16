@@ -18,11 +18,13 @@ class CartController extends Controller
         $request->validate([
             'product_id' => 'required|exists:products,id',
             'quantity' => 'required|integer|min:1',
-            'color' => 'required',
-            'size' => 'required',
+            'color_id' => 'required',
+            'size_id' => 'required',
 
         ]);
         $product = Product::findorFail($request->product_id);
+        $variant = $product->variants()->where('color_id', $request->color_id)
+            ->where('size_id', $request->size_id)->first();
 
         $cartItem =  Cart::getContent()->where('id', $request->product_id)
             ->where('attributes.color', $request->color)
@@ -40,11 +42,14 @@ class CartController extends Controller
                 'id' => $request->product_id,
                 'name' => $product->name,
                 'price' => $product->price,
+
                 'attributes' => [
-                    'color' => $request->color,
-                    'size' => $request->size,
+                    'color' => $variant->color->name,
+                    'size' => $variant->size->name,
                     'category' => $product->category->name,
-                    'images' => $product->images,
+                    'images' => $product->images->pluck('url')->toArray(),
+                    'slug' => $product->slug,
+                    'stock' => $variant->stock,
                 ],
                 'quantity' => $request->quantity,
             ));
@@ -52,7 +57,7 @@ class CartController extends Controller
 
         if (Auth::check()) {
             $userId = Auth::user()->id;
-            $this->saveCartToDatabase($userId);
+            $this->saveCartToDatabase($userId, $request->product_id);
         }
         return redirect()->back()->with('success', 'Product added to cart!');
     }
@@ -81,33 +86,45 @@ class CartController extends Controller
 
     public function viewCart()
     {
-        $cartItems = Cart::getContent();
         $user = Auth::user();
-        if ( Auth::check()) {
-           $cartItems =  cartModel::with('product.images')->where('user_id' , $user->id)->get();
+        $cartItems = Cart::getContent();
+
+        if (Auth::check()) {
+            $cartItems =  cartModel::with('product')->where('user_id', $user->id)->get();
         }
         return view('store.cart', compact('cartItems'));
     }
 
     public function updateCart(Request $request)
     {
-        Cart::update($request->product_id, array(
-            'quantity' => [
-                'relative' => false,
-                'value' =>  $request->quantity,
-            ],
-        ));
+        $request->validate([
+            'quantities' => 'required|array',
+            'quantities.*' => 'required|integer|min:1',
+        ]);
+
         if (Auth::check()) {
             $userId = Auth::user()->id;
-            cartModel::updateOrCreate(
-                [
-                    'user_id' => $userId,
-                    'product_id' => $request->product_id,
-                ],
-                [
-                    'quantity' => $request->quantity,
-                ]
-            );
+            foreach ($request->quantities as $cartItemId  => $quantity) {
+                $cartItem = cartModel::where('user_id', $userId)
+                    ->where('id', $cartItemId)
+                    ->first();
+                if ($cartItem) {
+                    $cartItem->quantity = $quantity;
+                    $cartItem->save();
+                }
+            }
+            return redirect()->back()->with('success', 'cart has been updated successfully');
+        } else {
+            foreach ($request->quantities as $productId  => $quantity) {
+
+                Cart::update($productId, array(
+                    'quantity' => [
+                        'relative' => false,
+                        'value' =>  $quantity,
+                    ],
+                ));
+            }
+            return redirect()->back()->with('success', 'cart has been updated successfully');
         }
     }
 
@@ -121,5 +138,17 @@ class CartController extends Controller
                 ->where('product_id', $id)->delete();
         }
         return redirect()->back()->with('success', 'Product removed from cart!');
+    }
+
+
+    public function clearCart()
+    {
+        if (Auth::check()) {
+            cartModel::where('user_id', Auth::id())->delete();
+            return redirect()->back()->with('success', 'cart has been cleared');
+        } else {
+            Cart::clear();
+            return redirect()->back()->with('success', 'cart has been cleared');
+        }
     }
 }

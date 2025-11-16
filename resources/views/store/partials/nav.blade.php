@@ -62,10 +62,10 @@
                                         <li>
                                             <form method="POST" action="{{ route('logout') }}">
                                                 @csrf
-                                                    <button type="submit" class="logout-button">
-                                                        <i class="fas fa-sign-out-alt u-s-m-r-6"></i>
-                                                        <span>Logout</span>
-                                                    </button>
+                                                <button type="submit" class="logout-button">
+                                                    <i class="fas fa-sign-out-alt u-s-m-r-6"></i>
+                                                    <span>Logout</span>
+                                                </button>
                                             </form>
 
                                         </li>
@@ -1226,14 +1226,19 @@
                                     $cartItems = \App\Models\Cart::with('product')
                                         ->where('user_id', auth()->id())
                                         ->get();
+                                    $subtotal = $cartItems->sum(function($item){
+                                        return  $item->quantity * $item->price;
+                                    });
+
                                 } else {
                                     // Guest user - get from Cart facade (darryldecode/cart)
                                     $cartCount = \Cart::getTotalQuantity();
                                     $cartItems = \Cart::getContent();
+                                    $subtotal = \Cart::getSubTotal();
                                 }
                             @endphp
                             <li class="has-dropdown">
-                                <a class="mini-cart-shop-link"><i class="fas fa-shopping-bag"></i>
+                                <a href="{{ route('home.cart') }}" class="mini-cart-shop-link"><i class="fas fa-shopping-bag"></i>
                                     <span class="total-item-round">{{ $cartCount }}</span></a>
                                 <!--====== Dropdown ======-->
 
@@ -1245,38 +1250,53 @@
                                         @if ($cartCount == 0)
                                             <div class="border p-5 text-center w-100 m-auto">
                                                 <p class="mb-5 fs-5 fw-bold text-body">No products in the cart </p>
-                                                <button type="submit" class="btn btn--e-brand-b-2 p-3">Back to
-                                                    Shop</button>
+                                                <a href="{{ route('shop') }}" type="submit" class="btn btn--e-brand-b-2 p-3">Back to
+                                                    Shop</a>
                                             </div>
                                         @else
                                             <!--====== Card for mini cart ======-->
                                             @if ($cartCount > 0)
                                                 @foreach ($cartItems as $item)
-
                                                     <div class="card-mini-product">
                                                         <div class="mini-product">
 
 
-                                                             <div class="mini-product__image-wrapper">
+                                                            <div class="mini-product__image-wrapper">
 
-                                                                <a class="mini-product__link" href="product-detail.html">
+                                                                <a class="mini-product__link"
+                                                                    href="{{ route('home.product-details', ['id' => $item->id, 'slug' => $item->attributes->slug ?? $item->product->slug]) }}">
+                                                                    @php
+                                                                        if (
+                                                                            !empty($item->product) &&
+                                                                            $item->product->images->isNotEmpty()
+                                                                        ) {
+                                                                            $productImage = $item->product->images->first()
+                                                                                ->url;
 
-                                                                    <img class="u-img-fluid"
-                                                                        src="{{ asset('store_assets/images/products/' . $item->product->images[0]->url) }}"
-                                                                        alt=""></a>
+                                                                        } else {
+                                                                            $cartImage = $item->attributes->images[0];
+                                                                        }
+
+                                                                        $imageUrl = $productImage ?? $cartImage;
+
+                                                                    @endphp
+                                                                    <img style= "width: 79px; height:84px;"
+                                                                        src="{{ asset('store_assets/images/products/' . $imageUrl) }}"
+                                                                        alt="">
+                                                                </a>
                                                             </div>
 
                                                             <div class="mini-product__info-wrapper">
 
-                                                                {{-- <span class="mini-product__category">
+                                                                <span class="mini-product__category">
 
                                                                     <a
-                                                                        href="shop-side-version-2.html">{{ $item->attributes->category }}</a></span> --}}
+                                                                        href="shop-side-version-2.html">{{ $item->attributes->category ?? "" }}</a></span>
 
                                                                 <span class="mini-product__name">
 
                                                                     <a
-                                                                        href="product-detail.html">{{ $item->name }}</a></span>
+                                                                        href="{{ route('home.product-details', ['id' => $item->id, 'slug' => $item->attributes->slug ?? $item->product->slug]) }}">{{ $item->name }}</a></span>
 
                                                                 <span
                                                                     class="mini-product__quantity">{{ $item->quantity }}
@@ -1295,112 +1315,11 @@
                                                         </form>
 
                                                     </div>
-
                                                 @endforeach
                                             @endif
 
                                             <!--====== End - Card for mini cart ======-->
 
-
-                                            <!--====== Card for mini cart ======-->
-                                            {{-- <div class="card-mini-product">
-                                                <div class="mini-product">
-                                                    <div class="mini-product__image-wrapper">
-
-                                                        <a class="mini-product__link" href="product-detail.html">
-
-                                                            <img class="u-img-fluid"
-                                                                src="{{ asset('store_assets/images/product/electronic/product18.jpg') }}"
-                                                                alt=""></a>
-                                                    </div>
-                                                    <div class="mini-product__info-wrapper">
-
-                                                        <span class="mini-product__category">
-
-                                                            <a href="shop-side-version-2.html">Electronics</a></span>
-
-                                                        <span class="mini-product__name">
-
-                                                            <a href="product-detail.html">Nikon DSLR Camera
-                                                                4k</a></span>
-
-                                                        <span class="mini-product__quantity">1 x</span>
-
-                                                        <span class="mini-product__price">$8</span>
-                                                    </div>
-                                                </div>
-
-                                                <a class="mini-product__delete-link far fa-trash-alt"></a>
-                                            </div> --}}
-                                            <!--====== End - Card for mini cart ======-->
-
-
-                                            <!--====== Card for mini cart ======-->
-                                            {{-- <div class="card-mini-product">
-                                                <div class="mini-product">
-                                                    <div class="mini-product__image-wrapper">
-
-                                                        <a class="mini-product__link" href="product-detail.html">
-
-                                                            <img class="u-img-fluid"
-                                                                src="{{ asset('store_assets/images/product/women/product8.jpg') }}"
-                                                                alt=""></a>
-                                                    </div>
-                                                    <div class="mini-product__info-wrapper">
-
-                                                        <span class="mini-product__category">
-
-                                                            <a href="shop-side-version-2.html">Women
-                                                                Clothing</a></span>
-
-                                                        <span class="mini-product__name">
-
-                                                            <a href="product-detail.html">New Dress D Nice
-                                                                Elegant</a></span>
-
-                                                        <span class="mini-product__quantity">1 x</span>
-
-                                                        <span class="mini-product__price">$8</span>
-                                                    </div>
-                                                </div>
-
-                                                <a class="mini-product__delete-link far fa-trash-alt"></a>
-                                            </div> --}}
-                                            <!--====== End - Card for mini cart ======-->
-
-
-                                            <!--====== Card for mini cart ======-->
-                                            {{-- <div class="card-mini-product">
-                                                <div class="mini-product">
-                                                    <div class="mini-product__image-wrapper">
-
-                                                        <a class="mini-product__link" href="product-detail.html">
-
-                                                            <img class="u-img-fluid"
-                                                                src="{{ asset('store_assets/images/product/men/product8.jpg') }}"
-                                                                alt=""></a>
-                                                    </div>
-                                                    <div class="mini-product__info-wrapper">
-
-                                                        <span class="mini-product__category">
-
-                                                            <a href="shop-side-version-2.html">Men
-                                                                Clothing</a></span>
-
-                                                        <span class="mini-product__name">
-
-                                                            <a href="product-detail.html">New Fashion D Nice
-                                                                Elegant</a></span>
-
-                                                        <span class="mini-product__quantity">1 x</span>
-
-                                                        <span class="mini-product__price">$8</span>
-                                                    </div>
-                                                </div>
-
-                                                <a class="mini-product__delete-link far fa-trash-alt"></a>
-                                            </div> --}}
-                                            <!--====== End - Card for mini cart ======-->
                                     </div>
                                     <!--====== End - Mini Product Container ======-->
 
@@ -1411,7 +1330,7 @@
 
                                             <span class="subtotal-text">SUBTOTAL</span>
 
-                                            <span class="subtotal-value">$16</span>
+                                            <span class="subtotal-value">{{ $subtotal }} EGP</span>
                                         </div>
                                         <div class="mini-action">
 
