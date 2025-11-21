@@ -31,7 +31,8 @@ class OrderRequest extends FormRequest
             'town' => 'required|string|max:255',
             'city' => 'required|string|max:255',
             'order_note' => 'nullable|string|max:1000',
-            'payment_method' => 'required'
+            'payment_method' => 'required',
+            'coupon_code' => 'exists:Coupons,code'
         ];
 
         if ($this->filled('ship_to_another_address')) {

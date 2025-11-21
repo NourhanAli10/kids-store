@@ -39,6 +39,8 @@ return new class extends Migration
             $table->string('payment_method')->nullable();
             $table->string('payment_transaction_id')->nullable();
             $table->text('order_note')->nullable();
+            $table->foreignId('coupon_id')->nullable()->constrained();
+            $table->string('coupon_code')->nullable();
             $table->timestamp('shipped_at')->nullable();
             $table->timestamp('delivered_at')->nullable();
             $table->timestamps();
