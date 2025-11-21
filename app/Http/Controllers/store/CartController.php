@@ -140,7 +140,6 @@ class CartController extends Controller
         return redirect()->back()->with('success', 'Product removed from cart!');
     }
 
-
     public function clearCart()
     {
         if (Auth::check()) {
