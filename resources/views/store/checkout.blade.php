@@ -29,7 +29,21 @@
         </div>
         <!--====== End - Section 1 ======-->
 
+        @error('code')
+            <p class="alert alert-danger text-center w-50 m-auto">{{ $message }}</p>
+        @enderror
 
+        @if (session('error'))
+            <div class="alert alert-danger text-center w-50 m-auto">
+                {{ session('error') }}
+            </div>
+        @endif
+
+        @if (session('success'))
+            <div class="alert alert-success text-center w-50 m-auto">
+                {{ session('success') }}
+            </div>
+        @endif
         <!--====== Section 2 ======-->
         <div class="u-s-p-b-60">
 
@@ -49,20 +63,28 @@
                                         <div class="c-f u-s-m-b-16">
 
                                             <span class="gl-text u-s-m-b-16">Enter your coupon code if you have one.</span>
-                                            <form class="c-f__form">
+                                            <form class="c-f__form" method="POST" action="{{ route('apply-coupon') }}">
+                                                @csrf
                                                 <div class="u-s-m-b-16">
                                                     <div class="u-s-m-b-15">
-
                                                         <label for="coupon"></label>
-
                                                         <input class="input-text input-text--primary-style" type="text"
-                                                            id="coupon" placeholder="Coupon Code">
+                                                            id="coupon" placeholder="Coupon Code" name="coupon_code"
+                                                            value="{{ $appliedCoupon['code'] ?? '' }}">
                                                     </div>
-                                                    <div class="u-s-m-b-15">
+                                                    <input type="hidden" name="subtotal" value="{{ $subtotal }}">
 
+                                                    <div class="u-s-m-b-15">
                                                         <button class="btn btn--e-transparent-brand-b-2"
                                                             type="submit">APPLY</button>
+                                                        @if (isset($appliedCoupon['code']))
+                                                            <a class="btn btn--e-transparent-brand-b-2"
+                                                                href="{{ route('remove-coupon') }}">REMOVE</a>
+                                                        @endif
                                                     </div>
+
+
+
                                                 </div>
                                             </form>
                                         </div>
@@ -110,8 +132,8 @@
                                                 <label class="gl-label" for="billing-lname">LAST NAME *</label>
                                                 <input class="input-text input-text--primary-style" type="text"
                                                     id="billing-lname"
-                                                    value="{{ old('last_name', $address->last_name ?? '') }}" data-bill=""
-                                                    name="last_name">
+                                                    value="{{ old('last_name', $address->last_name ?? '') }}"
+                                                    data-bill="" name="last_name">
                                                 @error('last_name')
                                                     <p class="text-danger">{{ $message }}</p>
                                                 @enderror
@@ -492,20 +514,27 @@
                                                 <tbody>
                                                     <tr>
                                                         <td>SUBTOTAL</td>
-                                                        <td>{{ $subtotal }}</td>
+                                                        <td>{{ number_format($subtotal, 2) }}</td>
                                                     </tr>
+                                                    @if ($discount > 0)
+
+                                                        <tr>
+                                                            <td>DISCOUNT</td>
+                                                            <td>{{ number_format($discount, 2) }}</td>
+                                                        </tr>
+                                                    @endif
                                                     <tr>
                                                         <td>TAX</td>
-                                                        <td>{{ $tax_amount }}</td>
+                                                        <td>{{ number_format($tax_amount, 2) }}</td>
                                                     </tr>
                                                     <tr>
                                                         <td>SHIPPING</td>
-                                                        <td id="shipping-cost">{{ $initialShippingCost }}</td>
+                                                        <td id="shipping-cost">{{ number_format($initialShippingCost , 2) }}</td>
                                                     </tr>
                                                     <tr>
                                                         <td>GRAND TOTAL</td>
                                                         <td id="total-amount">
-                                                            {{ number_format($subtotal + $tax_amount + ($initialShippingCost ?? 0), 2) }}
+                                                            {{ number_format($total, 2) }}
                                                         </td>
                                                     </tr>
                                                 </tbody>

@@ -11,6 +11,7 @@ use App\Models\Order;
 use App\Models\OrderItem;
 use App\Models\Product;
 use App\Models\User;
+use App\Services\CouponService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
@@ -22,6 +23,9 @@ class CheckoutController extends Controller
         $user = null;
         $address = null;
         $cartItems = null;
+        $subtotal = 0;
+        $tax_amount = 0;
+        $initialShippingCost = 0;
 
         if (Auth::check()) {
             $user = Auth::user();
@@ -32,23 +36,33 @@ class CheckoutController extends Controller
             if ($cartItems->isEmpty()) {
                 return redirect()->route('home.cart')->with('error', 'Your cart is empty');
             }
-        }
+
         $subtotal = $cartItems->sum(function ($item) {
             return $item->quantity * $item->price;
         });
-        $tax_amount = $subtotal * 0.14;
+        $discount = 0;
+        $appliedCoupon = null;
+        if (session()->has('applied_coupon')) {
+            $discount = session('applied_coupon')['discount'];
+            $appliedCoupon = session('applied_coupon');
+        }
+        $tax_amount = ($subtotal - $discount)  * 0.14;
+
 
         $initialShippingCost = 0;
         if ($address && $address->city) {
             $initialShippingCost = $this->calculateShippingCost($address->city);
         }
+        $total = $subtotal - $discount + $tax_amount + $initialShippingCost;
+    }
         return view('store.checkout', compact(
             'cartItems',
             'user',
             'address',
             'subtotal',
             'tax_amount',
-            'initialShippingCost'
+            'initialShippingCost',
+            'discount', 'total', 'appliedCoupon'
         ));
     }
 
@@ -67,9 +81,18 @@ class CheckoutController extends Controller
         $subtotal = $cartItems->sum(function ($item) {
             return $item->quantity * $item->price;
         });
-        $tax_amount = $subtotal * 0.14;
+        $discount = 0;
+        $couponId = null;
+        if (session('applied_coupon')) {
+            $discount = session('applied_coupon')['discount'];
+            $couponId = session('applied_coupon')['id'];
+            $couponCode = session('applied_coupon')['code'];
+        }
+        var_dump($discount);
+        $price_after_discount = $subtotal - $discount;
+        $tax_amount = $price_after_discount * 0.14;
         $shippingCost =  $this->calculateShippingCost($validatedData['city']);
-        $totalAmount = $subtotal + $shippingCost + $tax_amount;
+        $totalAmount = $price_after_discount + $shippingCost + $tax_amount;
         $shippingAddress = $this->handleOrderAddress($request, $validatedData, $user);
         $order = Order::create([
             'user_id' => $user->id,
@@ -84,6 +107,9 @@ class CheckoutController extends Controller
             'shipping_city' =>  $shippingAddress['city'],
             'status' => 'pending',
             'subtotal' => $subtotal,
+            'discount_amount' => $discount,
+            'coupon_id' => $couponId,
+            'coupon_code' => $couponCode,
             'tax_amount' => $tax_amount,
             'shipping_cost' => $shippingCost,
             'total_amount' => $totalAmount,
@@ -104,6 +130,12 @@ class CheckoutController extends Controller
                 'color' => $cartItem->color,
                 'total_price' => $cartItem->quantity *  $cartItem->price,
             ]);
+        }
+
+        if ($couponId) {
+            $couponService = new CouponService;
+            $couponService->recordUsage($couponId, $user->id , $order->id, $discount);
+            session()->forget('applied_coupon');
         }
 
         CartModel::where('user_id', $user->id)->delete();
