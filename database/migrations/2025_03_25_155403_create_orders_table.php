@@ -23,7 +23,7 @@ return new class extends Migration
             $table->text('shipping_address');
             $table->string('shipping_town');
             $table->string('shipping_city');
-            $table->string('status')->enum(['pending',
+            $table->enum('status', ['pending',
             'confirmed',
             'processing',
             'shipped',
