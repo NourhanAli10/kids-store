@@ -11,7 +11,8 @@ class AddressController extends Controller
 {
     public function show()
     {
-        $addresses = Address::where('user_id', Auth::user()->id)->get();
+        $user = Auth::user();
+        $addresses = $user->addresses;
         return view('store.profile.addresses', compact('addresses'));
     }
 

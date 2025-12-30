@@ -5,29 +5,11 @@
 
 @section('content')
 
+
+
 <div class="app-content">
 
-    <!--====== Section 1 ======-->
-    <div class="u-s-p-y-60">
-
-        <!--====== Section Content ======-->
-        <div class="section__content">
-            <div class="container">
-                <div class="breadcrumb">
-                    <div class="breadcrumb__wrap">
-                        <ul class="breadcrumb__list">
-                            <li class="has-separator">
-
-                                <a href="index.html">Home</a></li>
-                            <li class="is-marked">
-
-                                <a href="dashboard.html">My Account</a></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+ 
     <!--====== End - Section 1 ======-->
 
 
@@ -57,11 +39,7 @@
 
                                                     <span class="dash__text">{{ $user->first_name }} {{ $user->last_name }}</span>
 
-                                                    <span class="dash__text">{{ $user->email }}</span>
-
-                                                    <div class="dash__link dash__link--secondary u-s-m-t-8">
-
-                                                        <a data-modal="modal" data-modal-id="#dash-newsletter">Subscribe Newsletter</a></div>
+                                                    <span class="dash__text">{{ $user->email }}</span>                                        
                                                 </div>
                                             </div>
                                         </div>
@@ -97,41 +75,43 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="dash__box dash__box--shadow dash__box--bg-white dash__box--radius">
-                                <h2 class="dash__h2 u-s-p-xy-20">RECENT ORDERS</h2>
-                                <div class="dash__table-wrap gl-scroll">
-                                    <table class="dash__table">
-                                        <thead>
-                                            <tr>
-                                                <th>Order #</th>
-                                                <th>Placed On</th>
-                                                <th>Items</th>
-                                                <th>Total</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            @foreach($orders as $order)
-                                            <tr>
-                                                <td>{{ $order->order_number }}</td>
-                                                <td>{{ $order->created_at->format('d M Y') }}</td>
-                                                <td>
-                                                    {{ $order->status }}
-                                                <td>
-                                                    <div class="dash__table-total">
+                            @if($orders->count() > 0)
+                                <div class="dash__box dash__box--shadow dash__box--bg-white dash__box--radius">
+                                    <h2 class="dash__h2 u-s-p-xy-20">RECENT ORDERS</h2>
+                                    <div class="dash__table-wrap gl-scroll">
+                                        <table class="dash__table">
+                                            <thead>
+                                                <tr>
+                                                    <th>Order #</th>
+                                                    <th>Placed On</th>
+                                                    <th>Items</th>
+                                                    <th>Total</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @foreach($orders as $order)
+                                                <tr>
+                                                    <td>{{ $order->order_number }}</td>
+                                                    <td>{{ $order->created_at->format('d M Y') }}</td>
+                                                    <td>
+                                                        {{ $order->status }}
+                                                    <td>
+                                                        <div class="dash__table-total">
 
-                                                        <span>{{ $order->total_amount }}</span>
-                                                        <div class="dash__link dash__link--brand">
+                                                            <span>{{ $order->total_amount }}</span>
+                                                            <div class="dash__link dash__link--brand">
 
-                                                            <a href="{{ route('orders.manage', $order->id) }}">MANAGE</a></div>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                            @endforeach
+                                                                <a href="{{ route('orders.manage', $order->id) }}">MANAGE</a></div>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                                @endforeach
 
-                                        </tbody>
-                                    </table>
+                                            </tbody>
+                                        </table>
+                                    </div>
                                 </div>
-                            </div>
+                            @endif
                         </div>
                     </div>
                 </div>

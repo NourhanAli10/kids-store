@@ -21,13 +21,13 @@ class ProfileController extends Controller
     {
         $user = Auth::user();
         $orders = $user->orders;
-        return view('store.profile.my-account', compact('user', 'orders'));
+        $address =  $user->addresses;
+        return view('store.profile.my-account', compact('user', 'orders', 'address'));
     }
 
 
     public function show() {
         $user = Auth::user();
-
         return view('store.profile.my-profile' , compact('user'));
     }
     /**
