@@ -32,13 +32,14 @@ class CheckoutController extends Controller
             $defaultAddress =  $user->addresses->where('is_default', 'true')->first()
                 ?? $user->addresses->first();
             $address = $defaultAddress;
-            $cartItems = CartModel::with('product')->where('user_id', $user->id)->get();
+            $cartItems = CartModel::with('product.variants')->where('user_id', $user->id)->get();
             if ($cartItems->isEmpty()) {
                 return redirect()->route('home.cart')->with('error', 'Your cart is empty');
             }
 
         $subtotal = $cartItems->sum(function ($item) {
-            return $item->quantity * $item->price;
+            $variant = $item->getProductVariant();
+            return $item->quantity * $variant->getFinalPrice();
         });
         $discount = 0;
         $appliedCoupon = null;
@@ -79,16 +80,17 @@ class CheckoutController extends Controller
             return redirect()->route('home.cart')->with('error', 'Your cart is empty');
         }
         $subtotal = $cartItems->sum(function ($item) {
-            return $item->quantity * $item->price;
+            $variant = $item->getProductVariant();
+            return $item->quantity * $variant->getFinalPrice();
         });
         $discount = 0;
         $couponId = null;
+        $couponCode = null;
         if (session('applied_coupon')) {
             $discount = session('applied_coupon')['discount'];
             $couponId = session('applied_coupon')['id'];
             $couponCode = session('applied_coupon')['code'];
         }
-        var_dump($discount);
         $price_after_discount = $subtotal - $discount;
         $tax_amount = $price_after_discount * 0.14;
         $shippingCost =  $this->calculateShippingCost($validatedData['city']);
@@ -118,20 +120,17 @@ class CheckoutController extends Controller
             'payment_method' =>  $validatedData['payment_method'],
 
         ]);
-
         foreach ($cartItems as $cartItem) {
             OrderItem::create([
                 'order_id' => $order->id,
                 'product_id' => $cartItem->product_id,
                 'product_name' => $cartItem->name,
                 'quantity' => $cartItem->quantity,
-                'unit_price' => $cartItem->price,
+                'unit_price' => $cartItem->getProductVariant()->getFinalPrice(),
                 'size' => $cartItem->size,
-                'color' => $cartItem->color,
-                'total_price' => $cartItem->quantity *  $cartItem->price,
+                'total_price' => $cartItem->quantity *  $cartItem->getProductVariant()->getFinalPrice(),
             ]);
         }
-
         if ($couponId) {
             $couponService = new CouponService;
             $couponService->recordUsage($couponId, $user->id , $order->id, $discount);

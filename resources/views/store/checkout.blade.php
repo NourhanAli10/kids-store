@@ -481,24 +481,38 @@
                                 <div class="o-summary">
                                     <div class="o-summary__section u-s-m-b-30">
                                         <div class="o-summary__item-wrap gl-scroll">
+
                                             @foreach ($cartItems as $cartItem)
                                                 <div class="o-card">
                                                     <div class="o-card__flex">
                                                         <div class="o-card__img-wrap">
                                                             <img class="u-img-fluid"
-                                                                src="images/product/electronic/product3.jpg"
-                                                                alt="">
+                                                                src="{{ asset('store_assets/images/products/' . $cartItem->product->images->first()->url) }}"
+                                                                alt="{{ $cartItem->name }}">
                                                         </div>
                                                         <div class="o-card__info-wrap">
                                                             <span class="o-card__name">
-                                                                <a href="product-detail.html">{{ $cartItem->name }}</a>
+                                                                <a
+                                                                    href="{{ route('home.product-details', [$cartItem->product->id, $cartItem->product->slug]) }}">{{ $cartItem->name }}</a>
                                                             </span>
-                                                            <span class="o-card__quantity">Quantity x
-                                                                {{ $cartItem->quantity }}</span>
-                                                            <span class="o-card__price">EGP
-                                                                {{ $cartItem->price }}</span>
+                                                            <p class="o-card__quantity">
+                                                                <span class="o-card__price text-dark">
+                                                                {{ $cartItem->getProductVariant()->getFinalPrice() }}
+
+                                                                x
+                                                                {{ $cartItem->quantity }}
+                                                                </span>
+                                                            </p>
+                                                            <p class="o-card__price ml-5">
+                                                                {{ $cartItem->getProductVariant()->getFinalPrice() * $cartItem->quantity }}
+                                                                EGP</p>
+
+
                                                         </div>
+
+
                                                     </div>
+
                                                     <!-- Remove item button - using JavaScript instead of nested form -->
                                                     <button type="button" class="o-card__del far fa-trash-alt"
                                                         onclick="removeCartItem({{ $cartItem->id }})"
@@ -517,7 +531,6 @@
                                                         <td>{{ number_format($subtotal, 2) }}</td>
                                                     </tr>
                                                     @if ($discount > 0)
-
                                                         <tr>
                                                             <td>DISCOUNT</td>
                                                             <td>{{ number_format($discount, 2) }}</td>
@@ -529,7 +542,8 @@
                                                     </tr>
                                                     <tr>
                                                         <td>SHIPPING</td>
-                                                        <td id="shipping-cost">{{ number_format($initialShippingCost , 2) }}</td>
+                                                        <td id="shipping-cost">
+                                                            {{ number_format($initialShippingCost, 2) }}</td>
                                                     </tr>
                                                     <tr>
                                                         <td>GRAND TOTAL</td>
