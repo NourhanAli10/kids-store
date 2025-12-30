@@ -17,10 +17,8 @@ return new class extends Migration
             $table->foreignId('product_id')->constrained()->onDelete('cascade');
             $table->string('name');
             $table->integer('quantity');
-            $table->decimal('price', 10, 2);
             $table->string('size');
-            $table->string('color');
-            $table->unique(['user_id', 'product_id']);
+            $table->unique(['user_id', 'product_id', 'size']);
             $table->timestamps();
         });
     }

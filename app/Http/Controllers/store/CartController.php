@@ -14,20 +14,22 @@ class CartController extends Controller
 
     public function addToCart(Request $request)
     {
-
         $request->validate([
             'product_id' => 'required|exists:products,id',
             'quantity' => 'required|integer|min:1',
-            'color_id' => 'required',
-            'size_id' => 'required',
-
+            'size' => 'required|exists:product_variants,size',
         ]);
         $product = Product::findorFail($request->product_id);
-        $variant = $product->variants()->where('color_id', $request->color_id)
-            ->where('size_id', $request->size_id)->first();
+        $variant = $product->variants()->where('size', $request->size)->first();
 
+
+        if (!$variant || $variant->stock < $request->quantity) {
+            return redirect()->back()->with('error', 'Insufficient stock available');
+        }
+
+        $price =  $variant->price;
+        $final_price = $variant->getFinalPrice();
         $cartItem =  Cart::getContent()->where('id', $request->product_id)
-            ->where('attributes.color', $request->color)
             ->where('attributes.size', $request->size)
             ->first();
         if ($cartItem) {
@@ -41,15 +43,15 @@ class CartController extends Controller
             $cartItem = Cart::add(array(
                 'id' => $request->product_id,
                 'name' => $product->name,
-                'price' => $product->price,
-
+                'price' => $variant->price,
                 'attributes' => [
-                    'color' => $variant->color->name,
-                    'size' => $variant->size->name,
+                    'size' => $variant->size,
                     'category' => $product->category->name,
                     'images' => $product->images->pluck('url')->toArray(),
                     'slug' => $product->slug,
                     'stock' => $variant->stock,
+                    'price' => $price,
+                    'final_price' => $final_price,
                 ],
                 'quantity' => $request->quantity,
             ));
@@ -57,40 +59,41 @@ class CartController extends Controller
 
         if (Auth::check()) {
             $userId = Auth::user()->id;
-            $this->saveCartToDatabase($userId, $request->product_id);
+
+            $this->saveCartToDatabase($userId, $request, $product->name);
         }
         return redirect()->back()->with('success', 'Product added to cart!');
     }
 
-    public function saveCartToDatabase(string $userId)
+    public function saveCartToDatabase(string $userId, $request, $productName)
     {
-        $sessionCart = Cart::getContent();
-        foreach ($sessionCart as $item) {
-            cartModel::updateOrCreate(
+        $cartItem = CartModel::where('user_id', $userId)->where('product_id', $request->product_id)
+            ->where('size', $request->size)->first();
+        if ($cartItem) {
+            $cartItem->update(
                 [
-                    'user_id' => $userId,
-                    'product_id' => $item->id,
-                ],
-                [
-                    'product_id' => $item->id,
-                    'name' => $item->name,
-                    'user_id' => $userId,
-                    'quantity' => $item->quantity,
-                    'price' => $item->price,
-                    'color' => $item->attributes->color,
-                    'size' => $item->attributes->size,
+                    'quantity' => $cartItem->quantity + $request->quantity,
                 ]
             );
+        } else {
+            CartModel::create([
+                'user_id' => $userId,
+                'product_id' => $request->product_id,
+                'name' => $productName,
+                'quantity' => $request->quantity,
+                'size' => $request->size,
+            ]);
         }
     }
 
     public function viewCart()
     {
         $user = Auth::user();
-        $cartItems = Cart::getContent();
-
         if (Auth::check()) {
-            $cartItems =  cartModel::with('product')->where('user_id', $user->id)->get();
+            $cartItems =  cartModel::with(['product.variants', 'product.images'])
+                ->where('user_id', $user->id)->get();
+        } else {
+            $cartItems = Cart::getContent();
         }
         return view('store.cart', compact('cartItems'));
     }
@@ -135,7 +138,7 @@ class CartController extends Controller
         }
         if (Auth::check()) {
             cartModel::where('user_id', Auth::user()->id)
-                ->where('product_id', $id)->delete();
+                ->where('id', $id)->delete();
         }
         return redirect()->back()->with('success', 'Product removed from cart!');
     }

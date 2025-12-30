@@ -16,11 +16,11 @@
                                 <ul class="breadcrumb__list">
                                     <li class="has-separator">
 
-                                        <a href="index.html">Home</a>
+                                        <a href="{{ route('home') }}">Home</a>
                                     </li>
                                     <li class="is-marked">
 
-                                        <a href="cart.html">Cart</a>
+                                        <a href="{{ route('home.cart') }}">Cart</a>
                                     </li>
                                 </ul>
                             </div>
@@ -74,16 +74,20 @@
                                                     <div class="table-p__box">
                                                         <div class="table-p__img-wrap">
                                                             @php
-                                                                if (
-                                                                    !empty($item->product) &&
-                                                                    $item->product->images->isNotEmpty()
-                                                                ) {
+                                                                if (Auth::check()) {
+                                                                    $variantPrice = $item->getProductVariant()->getFinalPrice();
+                                                                    $variantStock =  $item->getProductVariant()->stock ;
                                                                     $productImage = $item->product->images->first()->url;
-                                                                } else {
-                                                                    $cartImage = $item->attributes->images[0];
-                                                                }
 
-                                                                $imageUrl = $productImage ?? $cartImage;
+                                                                } else {
+                                                                    $cartItemPrice =  $item->price ;
+                                                                    $cartItemStock = $item->attributes->stock;
+                                                                     $cartImage = $item->attributes->images[0];
+
+                                                                }
+                                                                 $price = $variantPrice ?? $cartItemPrice;
+                                                                 $stock =  $variantStock ?? $cartItemStock;
+                                                                  $imageUrl = $productImage ?? $cartImage;
                                                             @endphp
 
                                                             <img style="width: 79px; height:134px;"
@@ -96,22 +100,16 @@
                                                                     {{ $item->name }}
                                                                 </a>
                                                             </span>
-                                                            <span class="table-p__category">
-                                                                <a href="shop-side-version-2.html"></a>
-                                                            </span>
                                                             <ul class="table-p__variant-list">
                                                                 <li>
                                                                     <span>Size: {{ $item->size ?? $item->attributes->size }}</span>
-                                                                </li>
-                                                                <li>
-                                                                    <span>Color: {{ $item->color ?? $item->attributes->color }}</span>
                                                                 </li>
                                                             </ul>
                                                         </div>
                                                     </div>
                                                 </td>
                                                 <td>
-                                                    <span class="table-p__price">EGP {{ $item->price }}</span>
+                                                    <span class="table-p__price">EGP {{$price }}</span>
                                                 </td>
                                                 <td>
                                                     <div class="table-p__input-counter-wrap">
@@ -123,7 +121,7 @@
                                                                 type="text"
                                                                 value="{{ $item->quantity }}"
                                                                 data-min="1"
-                                                                data-max="{{ $item->variant->stock ?? $item->attributes->stock ?? 10 }}"
+                                                                data-max="{{ $stock ?? 10 }}"
                                                                 data-product-id="{{ $item->id }}">
 
                                                             @error("quantities.{$item->id}")
@@ -136,7 +134,7 @@
                                                     </div>
                                                 </td>
                                                 <td>
-                                                    <span class="table-p__price">EGP {{ $item->price * $item->quantity }}</span>
+                                                    <span class="table-p__price">EGP {{ $price }}</span>
                                                 </td>
                                                 <td>
                                                     <div class="table-p__del-wrap">
