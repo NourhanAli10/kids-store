@@ -14,11 +14,11 @@
                         <ul class="breadcrumb__list">
                             <li class="has-separator">
 
-                                <a href="index.html">Home</a>
+                                <a href="{{ route('home') }}">Home</a>
                             </li>
                             <li class="is-marked">
 
-                                <a href="contact.html">Contact</a>
+                                <a href="{{ route('contact.show') }}">Contact</a>
                             </li>
                         </ul>
                     </div>
@@ -63,9 +63,9 @@
 
                                 <span class="contact-o__info-text-1">LET'S HAVE A CALL</span>
 
-                                <span class="contact-o__info-text-2">(+0) 900 901 904</span>
+                                <span class="contact-o__info-text-2">900 901 904</span>
 
-                                <span class="contact-o__info-text-2">(+0) 900 901 902</span>
+                                <span class="contact-o__info-text-2">900 901 902</span>
                             </div>
                         </div>
                     </div>
@@ -76,9 +76,9 @@
 
                                 <span class="contact-o__info-text-1">OUR LOCATION</span>
 
-                                <span class="contact-o__info-text-2">4247 Ashford Drive VA-20006</span>
+                                <span class="contact-o__info-text-2">ِAlexandria</span>
 
-                                <span class="contact-o__info-text-2">Virginia US</span>
+                                <span class="contact-o__info-text-2">Egypt</span>
                             </div>
                         </div>
                     </div>
