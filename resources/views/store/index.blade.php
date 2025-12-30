@@ -14,14 +14,14 @@
 
                                 <span class="content-span-1 u-c-secondary">Latest Update Stock</span>
 
-                                <span class="content-span-2 u-c-secondary">30% Off On Electronics</span>
+                                <span class="content-span-2 u-c-secondary">30% Off On kids Clothes</span>
 
-                                <span class="content-span-3 u-c-secondary">Find electronics on best prices,
-                                    Also Discover most selling products of electronics</span>
+                                <span class="content-span-3 u-c-secondary">Find Clothes on best prices,
+                                    Also Discover most selling products of kids clothes</span>
 
                                 <span class="content-span-4 u-c-secondary">Starting At
 
-                                    <span class="u-c-brand">$1050.00</span></span>
+                                    <span class="u-c-brand">150 EGP</span></span>
 
                                 <a class="shop-now-link btn--e-brand" href="{{ route('shop') }}">SHOP
                                     NOW</a>
@@ -34,18 +34,18 @@
                 <div class="container">
                     <div class="row">
                         <div class="col-12">
-                            <div class="slider-content slider-content--animation">
+                              <div class="slider-content slider-content--animation">
 
-                                <span class="content-span-1 u-c-white">Find Top Brands</span>
+                                <span class="content-span-1 u-c-secondary">Latest Update Stock</span>
 
-                                <span class="content-span-2 u-c-white">10% Off On Electronics</span>
+                                <span class="content-span-2 u-c-secondary">30% Off On kids Clothes</span>
 
-                                <span class="content-span-3 u-c-white">Find electronics on best prices, Also
-                                    Discover most selling products of electronics</span>
+                                <span class="content-span-3 u-c-secondary">Find Clothes on best prices,
+                                    Also Discover most selling products of kids clothes</span>
 
-                                <span class="content-span-4 u-c-white">Starting At
+                                <span class="content-span-4 u-c-secondary">Starting At
 
-                                    <span class="u-c-brand">$380.00</span></span>
+                                    <span class="u-c-brand">150 EGP</span></span>
 
                                 <a class="shop-now-link btn--e-brand" href="{{ route('shop') }}">SHOP
                                     NOW</a>
@@ -58,18 +58,18 @@
                 <div class="container">
                     <div class="row">
                         <div class="col-12">
-                            <div class="slider-content slider-content--animation">
+                           <div class="slider-content slider-content--animation">
 
-                                <span class="content-span-1 u-c-secondary">Find Top Brands</span>
+                                <span class="content-span-1 u-c-secondary">Latest Update Stock</span>
 
-                                <span class="content-span-2 u-c-secondary">10% Off On Electronics</span>
+                                <span class="content-span-2 u-c-secondary">30% Off On kids Clothes</span>
 
-                                <span class="content-span-3 u-c-secondary">Find electronics on best prices,
-                                    Also Discover most selling products of electronics</span>
+                                <span class="content-span-3 u-c-secondary">Find Clothes on best prices,
+                                    Also Discover most selling products of kids clothes</span>
 
                                 <span class="content-span-4 u-c-secondary">Starting At
 
-                                    <span class="u-c-brand">$550.00</span></span>
+                                    <span class="u-c-brand">150 EGP</span></span>
 
                                 <a class="shop-now-link btn--e-brand" href="{{ route('shop') }}">SHOP
                                     NOW</a>
@@ -109,10 +109,11 @@
                     @foreach ($categories as $category)
                         <div class="col-lg-4 col-md-4 u-s-m-b-30">
 
-                            <a class="collection" href="shop-side-version-2.html">
+                            <a class="collection" href="{{ route('shop', ['category_id' => $category->id]) }}">
                                 <div class="aspect aspect--bg-grey aspect--square">
                                     <img class="aspect__img collection__img"
-                                        src="{{ asset('store_assets/images/categories/' . $category->image) }}" alt="">
+                                        src="{{ asset('store_assets/images/categories/' . $category->image) }}"
+                                        alt="{{ $category->name }}">
                                 </div>
                                 <p class="text-center mt-5 text-dark">{{ $category->name }}</p>
 
@@ -139,9 +140,7 @@
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="section__text-wrap">
-                            <h1 class="section__heading u-c-secondary u-s-m-b-12">TOP TRENDING</h1>
-
-                            <span class="section__span u-c-silver">CHOOSE CATEGORY</span>
+                            <h1 class="section__heading u-c-secondary u-s-m-b-12">Best Sellers</h1>
                         </div>
                     </div>
                 </div>
@@ -155,24 +154,6 @@
             <div class="container">
                 <div class="row">
                     <div class="col-lg-12">
-                        <div class="filter-category-container">
-                            <div class="filter__category-wrapper">
-
-                                <button class="btn filter__btn filter__btn--style-1 js-checked" type="button"
-                                    data-filter="*">ALL</button>
-                            </div>
-                            <div class="filter__category-wrapper">
-
-                                <button class="btn filter__btn filter__btn--style-1" type="button"
-                                    data-filter=".headphone">HEADPHONES</button>
-                            </div>
-                            <div class="filter__category-wrapper">
-
-                                <button class="btn filter__btn filter__btn--style-1" type="button"
-                                    data-filter=".smartphone">SMARTPHONES</button>
-                            </div>
-
-                        </div>
                         <div class="filter__grid-wrapper u-s-m-t-30">
                             <div class="row">
                                 @if ($products)
@@ -185,576 +166,67 @@
                                                         href="{{ route('home.product-details', ['id' => $product->id, 'slug' => $product->slug]) }}">
 
                                                         <img class="aspect__img"
-                                                    src="{{ asset('store_assets/images/products/' . $product->images[0]->url) }}"
-                                                    alt=""></a>
-                                                        <div class="product-o__action-wrap">
-                                                            <ul class="product-o__action-list">
-                                                                <li>
+                                                            src="{{ asset('store_assets/images/products/' . $product->images[0]->url) }}"
+                                                            alt=""></a>
+                                                    <div class="product-o__action-wrap">
+                                                        <ul class="product-o__action-list">
+                                                            <li>
+                                                                <a  href= "{{ route('home.product-details', ['id' => $product->id, 'slug' => $product->slug]) }}" data-modal="modal" data-modal-id="#add-to-cart"
+                                                                    data-tooltip="tooltip" data-placement="top"
+                                                                    title="Add to Cart"><i
+                                                                        class="fas fa-plus-circle"></i></a>
+                                                            </li>
+                                                            <li>
 
-                                                                    <a data-modal="modal" data-modal-id="#quick-look"
-                                                                        data-tooltip="tooltip" data-placement="top"
-                                                                        title="Quick View"><i
-                                                                            class="fas fa-search-plus"></i></a>
-                                                                </li>
-                                                                <li>
+                                                                <a href="#" data-tooltip="tooltip"
+                                                                    data-placement="top" title="Add to Wishlist">
 
-                                                                    <a data-modal="modal" data-modal-id="#add-to-cart"
-                                                                        data-tooltip="tooltip" data-placement="top"
-                                                                        title="Add to Cart"><i
-                                                                            class="fas fa-plus-circle"></i></a>
-                                                                </li>
-                                                                <li>
+                                                                    <form method="post"
+                                                                        action="{{ route('wishlist.store') }}">
+                                                                        @csrf
+                                                                        <span class="pd-detail__click-wrap">
+                                                                            <button type="submit"
+                                                                                class="btn p-0 add-to-wishlist"
+                                                                                data-id="{{ $product->id }}">
+                                                                                <i class="fas fa-heart"></i>
+                                                                            </button>
+                                                                            <input type="hidden" name="product_id"
+                                                                                value="{{ $product->id }}">
+                                                                        </span>
 
-                                                                    <a href="signin.html" data-tooltip="tooltip"
-                                                                        data-placement="top" title="Add to Wishlist"><i
-                                                                            class="fas fa-heart"></i></a>
-                                                                </li>
-                                                                <li>
+                                                                    </form>
+                                                                </a>
+                                                            </li>
 
-                                                                    <a href="signin.html" data-tooltip="tooltip"
-                                                                        data-placement="top"
-                                                                        title="Email me When the price drops"><i
-                                                                            class="fas fa-envelope"></i></a>
-                                                                </li>
-                                                            </ul>
-                                                        </div>
+                                                        </ul>
+                                                    </div>
                                                 </div>
 
                                                 <span class="product-o__category">
 
                                                     <a
-                                                        href="shop-side-version-2.html">{{ $product->category->name }}</a></span>
+                                                        href="{{ route('shop', ['category_id' => $product->category->id]) }}">{{ $product->category->name }}</a></span>
 
                                                 <span class="product-o__name">
 
                                                     <a
                                                         href="{{ route('home.product-details', ['id' => $product->id, 'slug' => $product->slug]) }}">{{ $product->name }}</a></span>
-                                                <div class="product-o__rating gl-rating-style"><i
-                                                        class="fas fa-star"></i><i class="fas fa-star"></i><i
-                                                        class="fas fa-star"></i><i class="fas fa-star"></i><i
-                                                        class="fas fa-star-half-alt"></i>
+                                                @if ($product->hasActiveOffer())
+                                                    <span
+                                                        class="product-o__price text-danger">{{ $product->getFinalPrice() }}
+                                                        EGP
+                                                        <span class="product-o__discount">
+                                                            {{ $product->base_price }} EGP</span></span>
+                                                @else
+                                                    <span class="product-o__price">
+                                                        {{ $product->base_price }} EGP</span></span>
+                                                @endif
 
-                                                    <span class="product-o__review">(23)</span>
-                                                </div>
 
-                                                <span class="product-o__price">{{ $product->price }} EGP
-
-                                                    <span class="product-o__discount">$160.00</span></span>
                                             </div>
                                         </div>
                                     @endforeach
                                 @endif
-                                {{-- <div
-                                    class="col-xl-3 col-lg-4 col-md-6 col-sm-6 u-s-m-b-30 filter__item headphone">
-                                    <div class="product-o product-o--hover-on product-o--radius">
-                                        <div class="product-o__wrap">
-
-                                            <a class="aspect aspect--bg-grey aspect--square u-d-block"
-                                                href="product-detail.html">
-
-                                                <img class="aspect__img"
-                                                    src="{{ asset('store_assets/images/product/electronic/product3.jpg') }}"
-                                                    alt=""></a>
-                                            <div class="product-o__action-wrap">
-                                                <ul class="product-o__action-list">
-                                                    <li>
-
-                                                        <a data-modal="modal" data-modal-id="#quick-look"
-                                                            data-tooltip="tooltip" data-placement="top"
-                                                            title="Quick View"><i
-                                                                class="fas fa-search-plus"></i></a>
-                                                    </li>
-                                                    <li>
-
-                                                        <a data-modal="modal" data-modal-id="#add-to-cart"
-                                                            data-tooltip="tooltip" data-placement="top"
-                                                            title="Add to Cart"><i
-                                                                class="fas fa-plus-circle"></i></a>
-                                                    </li>
-                                                    <li>
-
-                                                        <a href="signin.html" data-tooltip="tooltip"
-                                                            data-placement="top" title="Add to Wishlist"><i
-                                                                class="fas fa-heart"></i></a>
-                                                    </li>
-                                                    <li>
-
-                                                        <a href="signin.html" data-tooltip="tooltip"
-                                                            data-placement="top"
-                                                            title="Email me When the price drops"><i
-                                                                class="fas fa-envelope"></i></a>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </div>
-
-                                        <span class="product-o__category">
-
-                                            <a href="shop-side-version-2.html">Electronics</a></span>
-
-                                        <span class="product-o__name">
-
-                                            <a href="product-detail.html">Yellow Wireless Headphone</a></span>
-                                        <div class="product-o__rating gl-rating-style"><i
-                                                class="fas fa-star"></i><i class="fas fa-star"></i><i
-                                                class="fas fa-star-half-alt"></i><i class="far fa-star"></i><i
-                                                class="far fa-star"></i>
-
-                                            <span class="product-o__review">(23)</span>
-                                        </div>
-
-                                        <span class="product-o__price">$125.00
-
-                                            <span class="product-o__discount">$160.00</span></span>
-                                    </div>
-                                </div>
-                                <div
-                                    class="col-xl-3 col-lg-4 col-md-6 col-sm-6 u-s-m-b-30 filter__item sportgadget">
-                                    <div class="product-o product-o--hover-on product-o--radius">
-                                        <div class="product-o__wrap">
-
-                                            <a class="aspect aspect--bg-grey aspect--square u-d-block"
-                                                href="product-detail.html">
-
-                                                <img class="aspect__img"
-                                                    src="{{ asset('store_assets/images/product/electronic/product4.jpg') }}"
-                                                    alt=""></a>
-                                            <div class="product-o__action-wrap">
-                                                <ul class="product-o__action-list">
-                                                    <li>
-
-                                                        <a data-modal="modal" data-modal-id="#quick-look"
-                                                            data-tooltip="tooltip" data-placement="top"
-                                                            title="Quick View"><i
-                                                                class="fas fa-search-plus"></i></a>
-                                                    </li>
-                                                    <li>
-
-                                                        <a data-modal="modal" data-modal-id="#add-to-cart"
-                                                            data-tooltip="tooltip" data-placement="top"
-                                                            title="Add to Cart"><i
-                                                                class="fas fa-plus-circle"></i></a>
-                                                    </li>
-                                                    <li>
-
-                                                        <a href="signin.html" data-tooltip="tooltip"
-                                                            data-placement="top" title="Add to Wishlist"><i
-                                                                class="fas fa-heart"></i></a>
-                                                    </li>
-                                                    <li>
-
-                                                        <a href="signin.html" data-tooltip="tooltip"
-                                                            data-placement="top"
-                                                            title="Email me When the price drops"><i
-                                                                class="fas fa-envelope"></i></a>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </div>
-
-                                        <span class="product-o__category">
-
-                                            <a href="shop-side-version-2.html">Electronics</a></span>
-
-                                        <span class="product-o__name">
-
-                                            <a href="product-detail.html">Hover Skateboard Scooter</a></span>
-                                        <div class="product-o__rating gl-rating-style"><i
-                                                class="fas fa-star"></i><i class="fas fa-star"></i><i
-                                                class="fas fa-star"></i><i class="fas fa-star"></i><i
-                                                class="fas fa-star-half-alt"></i>
-
-                                            <span class="product-o__review">(23)</span>
-                                        </div>
-
-                                        <span class="product-o__price">$125.00
-
-                                            <span class="product-o__discount">$160.00</span></span>
-                                    </div>
-                                </div>
-                                <div
-                                    class="col-xl-3 col-lg-4 col-md-6 col-sm-6 u-s-m-b-30 filter__item sportgadget">
-                                    <div class="product-o product-o--hover-on product-o--radius">
-                                        <div class="product-o__wrap">
-
-                                            <a class="aspect aspect--bg-grey aspect--square u-d-block"
-                                                href="product-detail.html">
-
-                                                <img class="aspect__img"
-                                                    src="{{ asset('store_assets/images/product/electronic/product5.jpg') }}"
-                                                    alt=""></a>
-                                            <div class="product-o__action-wrap">
-                                                <ul class="product-o__action-list">
-                                                    <li>
-
-                                                        <a data-modal="modal" data-modal-id="#quick-look"
-                                                            data-tooltip="tooltip" data-placement="top"
-                                                            title="Quick View"><i
-                                                                class="fas fa-search-plus"></i></a>
-                                                    </li>
-                                                    <li>
-
-                                                        <a data-modal="modal" data-modal-id="#add-to-cart"
-                                                            data-tooltip="tooltip" data-placement="top"
-                                                            title="Add to Cart"><i
-                                                                class="fas fa-plus-circle"></i></a>
-                                                    </li>
-                                                    <li>
-
-                                                        <a href="signin.html" data-tooltip="tooltip"
-                                                            data-placement="top" title="Add to Wishlist"><i
-                                                                class="fas fa-heart"></i></a>
-                                                    </li>
-                                                    <li>
-
-                                                        <a href="signin.html" data-tooltip="tooltip"
-                                                            data-placement="top"
-                                                            title="Email me When the price drops"><i
-                                                                class="fas fa-envelope"></i></a>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </div>
-
-                                        <span class="product-o__category">
-
-                                            <a href="shop-side-version-2.html">Electronics</a></span>
-
-                                        <span class="product-o__name">
-
-                                            <a href="product-detail.html">Hover Red Skateboard
-                                                Scooter</a></span>
-                                        <div class="product-o__rating gl-rating-style"><i
-                                                class="fas fa-star"></i><i class="fas fa-star"></i><i
-                                                class="fas fa-star"></i><i class="fas fa-star"></i><i
-                                                class="fas fa-star-half-alt"></i>
-
-                                            <span class="product-o__review">(23)</span>
-                                        </div>
-
-                                        <span class="product-o__price">$125.00
-
-                                            <span class="product-o__discount">$160.00</span></span>
-                                    </div>
-                                </div>
-                                <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 u-s-m-b-30 filter__item dslr">
-                                    <div class="product-o product-o--hover-on product-o--radius">
-                                        <div class="product-o__wrap">
-
-                                            <a class="aspect aspect--bg-grey aspect--square u-d-block"
-                                                href="product-detail.html">
-
-                                                <img class="aspect__img"
-                                                    src="{{ asset('store_assets/images/product/electronic/product6.jpg') }}"
-                                                    alt=""></a>
-                                            <div class="product-o__action-wrap">
-                                                <ul class="product-o__action-list">
-                                                    <li>
-
-                                                        <a data-modal="modal" data-modal-id="#quick-look"
-                                                            data-tooltip="tooltip" data-placement="top"
-                                                            title="Quick View"><i
-                                                                class="fas fa-search-plus"></i></a>
-                                                    </li>
-                                                    <li>
-
-                                                        <a data-modal="modal" data-modal-id="#add-to-cart"
-                                                            data-tooltip="tooltip" data-placement="top"
-                                                            title="Add to Cart"><i
-                                                                class="fas fa-plus-circle"></i></a>
-                                                    </li>
-                                                    <li>
-
-                                                        <a href="signin.html" data-tooltip="tooltip"
-                                                            data-placement="top" title="Add to Wishlist"><i
-                                                                class="fas fa-heart"></i></a>
-                                                    </li>
-                                                    <li>
-
-                                                        <a href="signin.html" data-tooltip="tooltip"
-                                                            data-placement="top"
-                                                            title="Email me When the price drops"><i
-                                                                class="fas fa-envelope"></i></a>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </div>
-
-                                        <span class="product-o__category">
-
-                                            <a href="shop-side-version-2.html">Electronics</a></span>
-
-                                        <span class="product-o__name">
-
-                                            <a href="product-detail.html">Canon DSLR Camera 4k</a></span>
-                                        <div class="product-o__rating gl-rating-style"><i
-                                                class="fas fa-star"></i><i class="fas fa-star"></i><i
-                                                class="fas fa-star"></i><i class="fas fa-star"></i><i
-                                                class="fas fa-star-half-alt"></i>
-
-                                            <span class="product-o__review">(23)</span>
-                                        </div>
-
-                                        <span class="product-o__price">$125.00
-
-                                            <span class="product-o__discount">$160.00</span></span>
-                                    </div>
-                                </div>
-                                <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 u-s-m-b-30 filter__item dslr">
-                                    <div class="product-o product-o--hover-on product-o--radius">
-                                        <div class="product-o__wrap">
-
-                                            <a class="aspect aspect--bg-grey aspect--square u-d-block"
-                                                href="product-detail.html">
-
-                                                <img class="aspect__img"
-                                                    src="{{ asset('store_assets/images/product/electronic/product7.jpg') }}"
-                                                    alt=""></a>
-                                            <div class="product-o__action-wrap">
-                                                <ul class="product-o__action-list">
-                                                    <li>
-
-                                                        <a data-modal="modal" data-modal-id="#quick-look"
-                                                            data-tooltip="tooltip" data-placement="top"
-                                                            title="Quick View"><i
-                                                                class="fas fa-search-plus"></i></a>
-                                                    </li>
-                                                    <li>
-
-                                                        <a data-modal="modal" data-modal-id="#add-to-cart"
-                                                            data-tooltip="tooltip" data-placement="top"
-                                                            title="Add to Cart"><i
-                                                                class="fas fa-plus-circle"></i></a>
-                                                    </li>
-                                                    <li>
-
-                                                        <a href="signin.html" data-tooltip="tooltip"
-                                                            data-placement="top" title="Add to Wishlist"><i
-                                                                class="fas fa-heart"></i></a>
-                                                    </li>
-                                                    <li>
-
-                                                        <a href="signin.html" data-tooltip="tooltip"
-                                                            data-placement="top"
-                                                            title="Email me When the price drops"><i
-                                                                class="fas fa-envelope"></i></a>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </div>
-
-                                        <span class="product-o__category">
-
-                                            <a href="shop-side-version-2.html">Electronics</a></span>
-
-                                        <span class="product-o__name">
-
-                                            <a href="product-detail.html">Nikon DSLR Camera 4k</a></span>
-                                        <div class="product-o__rating gl-rating-style"><i
-                                                class="fas fa-star"></i><i class="fas fa-star"></i><i
-                                                class="fas fa-star"></i><i class="fas fa-star"></i><i
-                                                class="fas fa-star-half-alt"></i>
-
-                                            <span class="product-o__review">(23)</span>
-                                        </div>
-
-                                        <span class="product-o__price">$125.00
-
-                                            <span class="product-o__discount">$160.00</span></span>
-                                    </div>
-                                </div>
-                                <div
-                                    class="col-xl-3 col-lg-4 col-md-6 col-sm-6 u-s-m-b-30 filter__item smartphone">
-                                    <div class="product-o product-o--hover-on product-o--radius">
-                                        <div class="product-o__wrap">
-
-                                            <a class="aspect aspect--bg-grey aspect--square u-d-block"
-                                                href="product-detail.html">
-
-                                                <img class="aspect__img"
-                                                    src="{{ asset('store_assets/images/product/electronic/product8.jpg') }}"
-                                                    alt=""></a>
-                                            <div class="product-o__action-wrap">
-                                                <ul class="product-o__action-list">
-                                                    <li>
-
-                                                        <a data-modal="modal" data-modal-id="#quick-look"
-                                                            data-tooltip="tooltip" data-placement="top"
-                                                            title="Quick View"><i
-                                                                class="fas fa-search-plus"></i></a>
-                                                    </li>
-                                                    <li>
-
-                                                        <a data-modal="modal" data-modal-id="#add-to-cart"
-                                                            data-tooltip="tooltip" data-placement="top"
-                                                            title="Add to Cart"><i
-                                                                class="fas fa-plus-circle"></i></a>
-                                                    </li>
-                                                    <li>
-
-                                                        <a href="signin.html" data-tooltip="tooltip"
-                                                            data-placement="top" title="Add to Wishlist"><i
-                                                                class="fas fa-heart"></i></a>
-                                                    </li>
-                                                    <li>
-
-                                                        <a href="signin.html" data-tooltip="tooltip"
-                                                            data-placement="top"
-                                                            title="Email me When the price drops"><i
-                                                                class="fas fa-envelope"></i></a>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </div>
-
-                                        <span class="product-o__category">
-
-                                            <a href="shop-side-version-2.html">Electronics</a></span>
-
-                                        <span class="product-o__name">
-
-                                            <a href="product-detail.html">Smartphone RAM 4GB New</a></span>
-                                        <div class="product-o__rating gl-rating-style"><i
-                                                class="fas fa-star"></i><i class="fas fa-star"></i><i
-                                                class="fas fa-star"></i><i class="fas fa-star"></i><i
-                                                class="fas fa-star-half-alt"></i>
-
-                                            <span class="product-o__review">(23)</span>
-                                        </div>
-
-                                        <span class="product-o__price">$125.00
-
-                                            <span class="product-o__discount">$160.00</span></span>
-                                    </div>
-                                </div>
-                                <div
-                                    class="col-xl-3 col-lg-4 col-md-6 col-sm-6 u-s-m-b-30 filter__item smartphone">
-                                    <div class="product-o product-o--hover-on product-o--radius">
-                                        <div class="product-o__wrap">
-
-                                            <a class="aspect aspect--bg-grey aspect--square u-d-block"
-                                                href="product-detail.html">
-
-                                                <img class="aspect__img"
-                                                    src="{{ asset('store_assets/images/product/electronic/product9.jpg') }}"
-                                                    alt=""></a>
-                                            <div class="product-o__action-wrap">
-                                                <ul class="product-o__action-list">
-                                                    <li>
-
-                                                        <a data-modal="modal" data-modal-id="#quick-look"
-                                                            data-tooltip="tooltip" data-placement="top"
-                                                            title="Quick View"><i
-                                                                class="fas fa-search-plus"></i></a>
-                                                    </li>
-                                                    <li>
-
-                                                        <a data-modal="modal" data-modal-id="#add-to-cart"
-                                                            data-tooltip="tooltip" data-placement="top"
-                                                            title="Add to Cart"><i
-                                                                class="fas fa-plus-circle"></i></a>
-                                                    </li>
-                                                    <li>
-
-                                                        <a href="signin.html" data-tooltip="tooltip"
-                                                            data-placement="top" title="Add to Wishlist"><i
-                                                                class="fas fa-heart"></i></a>
-                                                    </li>
-                                                    <li>
-
-                                                        <a href="signin.html" data-tooltip="tooltip"
-                                                            data-placement="top"
-                                                            title="Email me When the price drops"><i
-                                                                class="fas fa-envelope"></i></a>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </div>
-
-                                        <span class="product-o__category">
-
-                                            <a href="shop-side-version-2.html">Electronics</a></span>
-
-                                        <span class="product-o__name">
-
-                                            <a href="product-detail.html">Smartphone RAM 8GB New</a></span>
-                                        <div class="product-o__rating gl-rating-style"><i
-                                                class="fas fa-star"></i><i class="fas fa-star"></i><i
-                                                class="fas fa-star"></i><i class="fas fa-star"></i><i
-                                                class="fas fa-star-half-alt"></i>
-
-                                            <span class="product-o__review">(23)</span>
-                                        </div>
-
-                                        <span class="product-o__price">$125.00
-
-                                            <span class="product-o__discount">$160.00</span></span>
-                                    </div>
-                                </div>
-                                <div
-                                    class="col-xl-3 col-lg-4 col-md-6 col-sm-6 u-s-m-b-30 filter__item smartphone">
-                                    <div class="product-o product-o--hover-on product-o--radius">
-                                        <div class="product-o__wrap">
-
-                                            <a class="aspect aspect--bg-grey aspect--square u-d-block"
-                                                href="product-detail.html">
-
-                                                <img class="aspect__img"
-                                                    src="{{ asset('store_assets/images/product/electronic/product10.jpg') }}"
-                                                    alt=""></a>
-                                            <div class="product-o__action-wrap">
-                                                <ul class="product-o__action-list">
-                                                    <li>
-
-                                                        <a data-modal="modal" data-modal-id="#quick-look"
-                                                            data-tooltip="tooltip" data-placement="top"
-                                                            title="Quick View"><i
-                                                                class="fas fa-search-plus"></i></a>
-                                                    </li>
-                                                    <li>
-
-                                                        <a data-modal="modal" data-modal-id="#add-to-cart"
-                                                            data-tooltip="tooltip" data-placement="top"
-                                                            title="Add to Cart"><i
-                                                                class="fas fa-plus-circle"></i></a>
-                                                    </li>
-                                                    <li>
-
-                                                        <a href="signin.html" data-tooltip="tooltip"
-                                                            data-placement="top" title="Add to Wishlist"><i
-                                                                class="fas fa-heart"></i></a>
-                                                    </li>
-                                                    <li>
-
-                                                        <a href="signin.html" data-tooltip="tooltip"
-                                                            data-placement="top"
-                                                            title="Email me When the price drops"><i
-                                                                class="fas fa-envelope"></i></a>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </div>
-
-                                        <span class="product-o__category">
-
-                                            <a href="shop-side-version-2.html">Electronics</a></span>
-
-                                        <span class="product-o__name">
-
-                                            <a href="product-detail.html">Smartphone RAM 16GB New</a></span>
-                                        <div class="product-o__rating gl-rating-style"><i
-                                                class="fas fa-star"></i><i class="fas fa-star"></i><i
-                                                class="fas fa-star"></i><i class="fas fa-star"></i><i
-                                                class="fas fa-star-half-alt"></i>
-
-                                            <span class="product-o__review">(23)</span>
-                                        </div>
-
-                                        <span class="product-o__price">$125.00
-
-                                            <span class="product-o__discount">$160.00</span></span>
-                                    </div>
-                                </div> --}}
                             </div>
                         </div>
                     </div>
@@ -772,6 +244,7 @@
     <!--====== End - Section 2 ======-->
 
 
+@if($deals->count() > 0)
     <!--====== Section 3 ======-->
     <div class="u-s-p-b-60">
 
@@ -794,7 +267,6 @@
         </div>
         <!--====== End - Section Intro ======-->
 
-
         <!--====== Section Content ======-->
         <div class="section__content">
             <div class="container">
@@ -803,7 +275,8 @@
                         <div class="product-o product-o--radius product-o--hover-off u-h-100">
                             <div class="product-o__wrap">
 
-                                <a class="aspect aspect--bg-grey aspect--square u-d-block" href="product-detail.html">
+                                <a class="aspect aspect--bg-grey aspect--square u-d-block"
+                                    href="">
 
                                     <img class="aspect__img"
                                         src="{{ asset('store_assets/images/product/electronic/product11.jpg') }}"
@@ -921,10 +394,11 @@
             </div>
         </div>
         <!--====== End - Section Content ======-->
+@endif
     </div>
     <!--====== End - Section 3 ======-->
 
-
+@if($newArrivals->count() > 0)
     <!--====== Section 4 ======-->
     <div class="u-s-p-b-60">
 
@@ -956,370 +430,65 @@
                                     <div class="product-o__wrap">
 
                                         <a class="aspect aspect--bg-grey aspect--square u-d-block"
-                                            href="product-detail.html">
+                                            href="{{ route('home.product-details', ['id' => $newArrival->id, 'slug' => $newArrival->slug]) }}">
 
                                             <img class="aspect__img"
                                                 src="{{ asset('store_assets/images/products/' . $newArrival->images[0]->url) }}"
                                                 alt=""></a>
-                                            <div class="product-o__action-wrap">
-                                                <ul class="product-o__action-list">
-                                                    <li>
+                                        <div class="product-o__action-wrap">
+                                            <ul class="product-o__action-list">
+                                                <li>
+                                                    <a  href= "{{ route('home.product-details', ['id' => $newArrival->id, 'slug' => $newArrival->slug]) }}" data-modal="modal" data-modal-id="#add-to-cart"
+                                                        data-tooltip="tooltip" data-placement="top"
+                                                        title="Add to Cart"><i class="fas fa-plus-circle"></i></a>
+                                                </li>
+                                                <li>
 
-                                                        <a data-modal="modal" data-modal-id="#quick-look"
-                                                            data-tooltip="tooltip" data-placement="top"
-                                                            title="Quick View"><i class="fas fa-search-plus"></i></a>
-                                                    </li>
-                                                    <li>
+                                                    <a href="#" data-tooltip="tooltip" data-placement="top"
+                                                        title="Add to Wishlist">
 
-                                                        <a data-modal="modal" data-modal-id="#add-to-cart"
-                                                            data-tooltip="tooltip" data-placement="top"
-                                                            title="Add to Cart"><i class="fas fa-plus-circle"></i></a>
-                                                    </li>
-                                                    <li>
+                                                        <form method="post" action="{{ route('wishlist.store') }}">
+                                                            @csrf
+                                                            <span class="pd-detail__click-wrap">
+                                                                <button type="submit" class="btn p-0 add-to-wishlist"
+                                                                    data-id="{{ $newArrival->id }}">
+                                                                    <i class="fas fa-heart"></i>
+                                                                </button>
+                                                                <input type="hidden" name="product_id"
+                                                                    value="{{ $newArrival->id }}">
+                                                            </span>
 
-                                                        <a href="signin.html" data-tooltip="tooltip" data-placement="top"
-                                                            title="Add to Wishlist"><i class="fas fa-heart"></i></a>
-                                                    </li>
-                                                    <li>
+                                                        </form>
+                                                    </a>
+                                                </li>
 
-                                                        <a href="signin.html" data-tooltip="tooltip" data-placement="top"
-                                                            title="Email me When the price drops"><i
-                                                                class="fas fa-envelope"></i></a>
-                                                    </li>
-                                                </ul>
-                                            </div>
+                                            </ul>
+                                        </div>
                                     </div>
 
                                     <span class="product-o__category">
 
-                                        <a href="shop-side-version-2.html">Electronics</a></span>
+                                        <a
+                                            href="{{ route('shop', ['category_id' => $newArrival->category->id]) }}">{{ $newArrival->category->name }}</a></span>
 
                                     <span class="product-o__name">
 
-                                        <a href="product-detail.html">{{ $newArrival->name }}</a></span>
-                                    <div class="product-o__rating gl-rating-style"><i class="far fa-star"></i><i
-                                            class="far fa-star"></i><i class="far fa-star"></i><i
-                                            class="far fa-star"></i><i class="far fa-star"></i>
+                                        <a
+                                            href="{{ route('home.product-details', ['id' => $newArrival->id, 'slug' => $newArrival->slug]) }}">{{ $newArrival->name }}</a></span>
 
-                                        <span class="product-o__review">(0)</span>
-                                    </div>
-
-                                    <span class="product-o__price">{{ $newArrival->price }} EGP
-
-                                        <span class="product-o__discount">$160.00</span></span>
+                                    @if ($newArrival->hasActiveOffer())
+                                        <span class="product-o__price text-danger">{{ $newArrival->getFinalPrice() }}
+                                            EGP
+                                            <span class="product-o__discount">
+                                                {{ $newArrival->base_price }} EGP</span></span>
+                                    @else
+                                        <span class="product-o__price">
+                                            {{ $newArrival->base_price }} EGP</span></span>
+                                    @endif
                                 </div>
                             </div>
                         @endforeach
-                        {{-- <div class="u-s-m-b-30">
-                            <div class="product-o product-o--hover-on">
-                                <div class="product-o__wrap">
 
-                                    <a class="aspect aspect--bg-grey aspect--square u-d-block"
-                                        href="product-detail.html">
-
-                                        <img class="aspect__img"
-                                            src="{{ asset('store_assets/images/product/electronic/product14.jpg') }}"
-                                            alt=""></a>
-                                    <div class="product-o__action-wrap">
-                                        <ul class="product-o__action-list">
-                                            <li>
-
-                                                <a data-modal="modal" data-modal-id="#quick-look"
-                                                    data-tooltip="tooltip" data-placement="top"
-                                                    title="Quick View"><i
-                                                        class="fas fa-search-plus"></i></a>
-                                            </li>
-                                            <li>
-
-                                                <a data-modal="modal" data-modal-id="#add-to-cart"
-                                                    data-tooltip="tooltip" data-placement="top"
-                                                    title="Add to Cart"><i
-                                                        class="fas fa-plus-circle"></i></a>
-                                            </li>
-                                            <li>
-
-                                                <a href="signin.html" data-tooltip="tooltip"
-                                                    data-placement="top" title="Add to Wishlist"><i
-                                                        class="fas fa-heart"></i></a>
-                                            </li>
-                                            <li>
-
-                                                <a href="signin.html" data-tooltip="tooltip"
-                                                    data-placement="top"
-                                                    title="Email me When the price drops"><i
-                                                        class="fas fa-envelope"></i></a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-
-                                <span class="product-o__category">
-
-                                    <a href="shop-side-version-2.html">Electronics</a></span>
-
-                                <span class="product-o__name">
-
-                                    <a href="product-detail.html">Nikon DSLR 2K Camera</a></span>
-                                <div class="product-o__rating gl-rating-style"><i class="far fa-star"></i><i
-                                        class="far fa-star"></i><i class="far fa-star"></i><i
-                                        class="far fa-star"></i><i class="far fa-star"></i>
-
-                                    <span class="product-o__review">(0)</span>
-                                </div>
-
-                                <span class="product-o__price">$125.00
-
-                                    <span class="product-o__discount">$160.00</span></span>
-                            </div>
-                        </div>
-                        <div class="u-s-m-b-30">
-                            <div class="product-o product-o--hover-on">
-                                <div class="product-o__wrap">
-
-                                    <a class="aspect aspect--bg-grey aspect--square u-d-block"
-                                        href="product-detail.html">
-
-                                        <img class="aspect__img"
-                                            src="{{ asset('store_assets/images/product/electronic/product15.jpg') }}"
-                                            alt=""></a>
-                                    <div class="product-o__action-wrap">
-                                        <ul class="product-o__action-list">
-                                            <li>
-
-                                                <a data-modal="modal" data-modal-id="#quick-look"
-                                                    data-tooltip="tooltip" data-placement="top"
-                                                    title="Quick View"><i
-                                                        class="fas fa-search-plus"></i></a>
-                                            </li>
-                                            <li>
-
-                                                <a data-modal="modal" data-modal-id="#add-to-cart"
-                                                    data-tooltip="tooltip" data-placement="top"
-                                                    title="Add to Cart"><i
-                                                        class="fas fa-plus-circle"></i></a>
-                                            </li>
-                                            <li>
-
-                                                <a href="signin.html" data-tooltip="tooltip"
-                                                    data-placement="top" title="Add to Wishlist"><i
-                                                        class="fas fa-heart"></i></a>
-                                            </li>
-                                            <li>
-
-                                                <a href="signin.html" data-tooltip="tooltip"
-                                                    data-placement="top"
-                                                    title="Email me When the price drops"><i
-                                                        class="fas fa-envelope"></i></a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-
-                                <span class="product-o__category">
-
-                                    <a href="shop-side-version-2.html">Electronics</a></span>
-
-                                <span class="product-o__name">
-
-                                    <a href="product-detail.html">Sony DSLR 4K Camera</a></span>
-                                <div class="product-o__rating gl-rating-style"><i class="far fa-star"></i><i
-                                        class="far fa-star"></i><i class="far fa-star"></i><i
-                                        class="far fa-star"></i><i class="far fa-star"></i>
-
-                                    <span class="product-o__review">(0)</span>
-                                </div>
-
-                                <span class="product-o__price">$125.00
-
-                                    <span class="product-o__discount">$160.00</span></span>
-                            </div>
-                        </div>
-                        <div class="u-s-m-b-30">
-                            <div class="product-o product-o--hover-on">
-                                <div class="product-o__wrap">
-
-                                    <a class="aspect aspect--bg-grey aspect--square u-d-block"
-                                        href="product-detail.html">
-
-                                        <img class="aspect__img"
-                                            src="{{ asset('store_assets/images/product/electronic/product16.jpg') }}"
-                                            alt=""></a>
-                                    <div class="product-o__action-wrap">
-                                        <ul class="product-o__action-list">
-                                            <li>
-
-                                                <a data-modal="modal" data-modal-id="#quick-look"
-                                                    data-tooltip="tooltip" data-placement="top"
-                                                    title="Quick View"><i
-                                                        class="fas fa-search-plus"></i></a>
-                                            </li>
-                                            <li>
-
-                                                <a data-modal="modal" data-modal-id="#add-to-cart"
-                                                    data-tooltip="tooltip" data-placement="top"
-                                                    title="Add to Cart"><i
-                                                        class="fas fa-plus-circle"></i></a>
-                                            </li>
-                                            <li>
-
-                                                <a href="signin.html" data-tooltip="tooltip"
-                                                    data-placement="top" title="Add to Wishlist"><i
-                                                        class="fas fa-heart"></i></a>
-                                            </li>
-                                            <li>
-
-                                                <a href="signin.html" data-tooltip="tooltip"
-                                                    data-placement="top"
-                                                    title="Email me When the price drops"><i
-                                                        class="fas fa-envelope"></i></a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-
-                                <span class="product-o__category">
-
-                                    <a href="shop-side-version-2.html">Electronics</a></span>
-
-                                <span class="product-o__name">
-
-                                    <a href="product-detail.html">Sony DSLR 2K Camera</a></span>
-                                <div class="product-o__rating gl-rating-style"><i class="far fa-star"></i><i
-                                        class="far fa-star"></i><i class="far fa-star"></i><i
-                                        class="far fa-star"></i><i class="far fa-star"></i>
-
-                                    <span class="product-o__review">(0)</span>
-                                </div>
-
-                                <span class="product-o__price">$125.00
-
-                                    <span class="product-o__discount">$160.00</span></span>
-                            </div>
-                        </div>
-                        <div class="u-s-m-b-30">
-                            <div class="product-o product-o--hover-on">
-                                <div class="product-o__wrap">
-
-                                    <a class="aspect aspect--bg-grey aspect--square u-d-block"
-                                        href="product-detail.html">
-
-                                        <img class="aspect__img"
-                                            src="{{ asset('store_assets/images/product/electronic/product17.jpg') }}"
-                                            alt=""></a>
-                                    <div class="product-o__action-wrap">
-                                        <ul class="product-o__action-list">
-                                            <li>
-
-                                                <a data-modal="modal" data-modal-id="#quick-look"
-                                                    data-tooltip="tooltip" data-placement="top"
-                                                    title="Quick View"><i
-                                                        class="fas fa-search-plus"></i></a>
-                                            </li>
-                                            <li>
-
-                                                <a data-modal="modal" data-modal-id="#add-to-cart"
-                                                    data-tooltip="tooltip" data-placement="top"
-                                                    title="Add to Cart"><i
-                                                        class="fas fa-plus-circle"></i></a>
-                                            </li>
-                                            <li>
-
-                                                <a href="signin.html" data-tooltip="tooltip"
-                                                    data-placement="top" title="Add to Wishlist"><i
-                                                        class="fas fa-heart"></i></a>
-                                            </li>
-                                            <li>
-
-                                                <a href="signin.html" data-tooltip="tooltip"
-                                                    data-placement="top"
-                                                    title="Email me When the price drops"><i
-                                                        class="fas fa-envelope"></i></a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-
-                                <span class="product-o__category">
-
-                                    <a href="shop-side-version-2.html">Electronics</a></span>
-
-                                <span class="product-o__name">
-
-                                    <a href="product-detail.html">Canon DSLR 4K Camera</a></span>
-                                <div class="product-o__rating gl-rating-style"><i class="far fa-star"></i><i
-                                        class="far fa-star"></i><i class="far fa-star"></i><i
-                                        class="far fa-star"></i><i class="far fa-star"></i>
-
-                                    <span class="product-o__review">(0)</span>
-                                </div>
-
-                                <span class="product-o__price">$125.00
-
-                                    <span class="product-o__discount">$160.00</span></span>
-                            </div>
-                        </div>
-                        <div class="u-s-m-b-30">
-                            <div class="product-o product-o--hover-on">
-                                <div class="product-o__wrap">
-
-                                    <a class="aspect aspect--bg-grey aspect--square u-d-block"
-                                        href="product-detail.html">
-
-                                        <img class="aspect__img"
-                                            src="{{ asset('store_assets/images/product/electronic/product18.jpg') }}"
-                                            alt=""></a>
-                                    <div class="product-o__action-wrap">
-                                        <ul class="product-o__action-list">
-                                            <li>
-
-                                                <a data-modal="modal" data-modal-id="#quick-look"
-                                                    data-tooltip="tooltip" data-placement="top"
-                                                    title="Quick View"><i
-                                                        class="fas fa-search-plus"></i></a>
-                                            </li>
-                                            <li>
-
-                                                <a data-modal="modal" data-modal-id="#add-to-cart"
-                                                    data-tooltip="tooltip" data-placement="top"
-                                                    title="Add to Cart"><i
-                                                        class="fas fa-plus-circle"></i></a>
-                                            </li>
-                                            <li>
-
-                                                <a href="signin.html" data-tooltip="tooltip"
-                                                    data-placement="top" title="Add to Wishlist"><i
-                                                        class="fas fa-heart"></i></a>
-                                            </li>
-                                            <li>
-
-                                                <a href="signin.html" data-tooltip="tooltip"
-                                                    data-placement="top"
-                                                    title="Email me When the price drops"><i
-                                                        class="fas fa-envelope"></i></a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-
-                                <span class="product-o__category">
-
-                                    <a href="shop-side-version-2.html">Electronics</a></span>
-
-                                <span class="product-o__name">
-
-                                    <a href="product-detail.html">Canon DSLR 2K Camera</a></span>
-                                <div class="product-o__rating gl-rating-style"><i class="far fa-star"></i><i
-                                        class="far fa-star"></i><i class="far fa-star"></i><i
-                                        class="far fa-star"></i><i class="far fa-star"></i>
-
-                                    <span class="product-o__review">(0)</span>
-                                </div>
-
-                                <span class="product-o__price">$125.00
-
-                                    <span class="product-o__discount">$160.00</span></span>
-                            </div>
-                        </div> --}}
                     </div>
                 </div>
             </div>
@@ -1327,10 +496,110 @@
         <!--====== End - Section Content ======-->
     </div>
     <!--====== End - Section 4 ======-->
+@endif
+@if ($productsWithOffers ->count() > 0)
 
+    <!--====== Section 4 ======-->
+    <div class="u-s-p-b-60">
+
+        <!--====== Section Intro ======-->
+        <div class="section__intro u-s-m-b-46">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="section__text-wrap">
+                            <h1 class="section__heading u-c-secondary u-s-m-b-12">Offers</h1>
+
+                            <span class="section__span u-c-silver">GET UP FOR Offers</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--====== End - Section Intro ======-->
+
+
+        <!--====== Section Content ======-->
+        <div class="section__content">
+            <div class="container">
+                <div class="slider-fouc">
+                    <div class="owl-carousel product-slider" data-item="4">
+                        @foreach ($productsWithOffers as $productWithOffer)
+                            <div class="u-s-m-b-30">
+                                <div class="product-o product-o--hover-on">
+                                    <div class="product-o__wrap">
+
+                                        <a class="aspect aspect--bg-grey aspect--square u-d-block"
+                                            href="{{ route('home.product-details', ['id' => $productWithOffer->id, 'slug' => $productWithOffer->slug]) }}">
+
+                                            <img class="aspect__img"
+                                                src="{{ asset('store_assets/images/products/' . $productWithOffer->images[0]->url) }}"
+                                                alt=""></a>
+                                        <div class="product-o__action-wrap">
+                                            <ul class="product-o__action-list">
+
+                                                <li>
+
+                                                    <a  href= "{{ route('home.product-details', ['id' => $productWithOffer->id, 'slug' => $productWithOffer->slug]) }}" data-modal="modal" data-modal-id="#add-to-cart"
+                                                        data-tooltip="tooltip" data-placement="top"
+                                                        title="Add to Cart"><i class="fas fa-plus-circle"></i></a>
+                                                </li>
+                                                <li>
+
+                                                   <a href="#" data-tooltip="tooltip" data-placement="top"
+                                                        title="Add to Wishlist">
+
+                                                        <form method="post" action="{{ route('wishlist.store') }}">
+                                                            @csrf
+                                                            <span class="pd-detail__click-wrap">
+                                                                <button type="submit" class="btn p-0 add-to-wishlist"
+                                                                    data-id="{{ $productWithOffer->id }}">
+                                                                    <i class="fas fa-heart"></i>
+                                                                </button>
+                                                                <input type="hidden" name="product_id"
+                                                                    value="{{ $productWithOffer->id }}">
+                                                            </span>
+
+                                                        </form>
+                                                    </a>
+                                                </li>
+
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <span class="product-o__category">
+
+                                        <a href="{{ route('shop', ['category_id' => $productWithOffer->category->id ] ) }}">{{ $productWithOffer->category->name }}</a></span>
+
+                                    <span class="product-o__name">
+
+                                        <a
+                                            href="{{ route('home.product-details', ['id' => $productWithOffer->id, 'slug' => $productWithOffer->slug]) }}">{{ $productWithOffer->name }}</a></span>
+
+                                    @if ($productWithOffer->hasActiveOffer())
+                                        <span class="product-o__price text-danger">{{ $productWithOffer->getFinalPrice() }}
+                                            EGP
+                                            <span class="product-o__discount">
+                                                {{ $productWithOffer->base_price }} EGP</span></span>
+                                    @else
+                                        <span class="product-o__price">
+                                            {{ $productWithOffer->base_price }} EGP</span></span>
+                                    @endif
+                                </div>
+                            </div>
+                        @endforeach
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--====== End - Section Content ======-->
+    </div>
+@endif
+    <!--====== End - Section 4 ======-->
 
     <!--====== Section 5 ======-->
-    <div class="banner-bg">
+    {{-- <div class="banner-bg">
 
         <!--====== Section Content ======-->
         <div class="section__content">
@@ -1365,475 +634,70 @@
             </div>
         </div>
         <!--====== End - Section Content ======-->
-    </div>
+    </div> --}}
     <!--====== End - Section 5 ======-->
 
 
     <!--====== Section 6 ======-->
-    <div class="u-s-p-y-60">
+    <div class="u-s-p-b-60">
+        @if ($featuredProducts->count() > 0)
+            <div class="section__intro u-s-m-b-46">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="section__text-wrap">
+                                <h1 class="section__heading u-c-secondary u-s-m-b-12">FEATURED PRODUCTS</h1>
 
-        <!--====== Section Intro ======-->
-        <div class="section__intro u-s-m-b-46">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-12">
-                        <div class="section__text-wrap">
-                            <h1 class="section__heading u-c-secondary u-s-m-b-12">FEATURED PRODUCTS</h1>
-
-                            <span class="section__span u-c-silver">FIND NEW FEATURED PRODUCTS</span>
+                                <span class="section__span u-c-silver">FIND NEW FEATURED PRODUCTS</span>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <!--====== End - Section Intro ======-->
 
+            <!--====== Section Content ======-->
+            <div class="section__content">
+                <div class="container">
+                    <div class="row">
 
-        <!--====== Section Content ======-->
-        <div class="section__content">
-            <div class="container">
-                <div class="row">
-                    @foreach($featuredProducts as $featuredProduct)
-                        <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 u-s-m-b-30">
-                            <div class="product-o product-o--hover-on u-h-100">
-                                <div class="product-o__wrap">
+                        @foreach ($featuredProducts as $featuredProduct)
+                            <div class="col-lg-4 col-md-4 col-sm-6 u-s-m-b-30">
 
-                                    <a class="aspect aspect--bg-grey aspect--square u-d-block" href="product-detail.html">
+                                <a class="promotion" href="shop-side-version-2.html">
+                                    <div class="aspect aspect--bg-grey aspect--square">
 
-                                        <img class="aspect__img"
-                                            src="{{ asset('store_assets/images/products/' . $featuredProduct->images[0]->url) }}"
-                                            alt=""></a>
-                                    <div class="product-o__action-wrap">
-                                        <ul class="product-o__action-list">
-                                            <li>
-
-                                                <a data-modal="modal" data-modal-id="#quick-look" data-tooltip="tooltip"
-                                                    data-placement="top" title="Quick View"><i
-                                                        class="fas fa-search-plus"></i></a>
-                                            </li>
-                                            <li>
-
-                                                <a data-modal="modal" data-modal-id="#add-to-cart" data-tooltip="tooltip"
-                                                    data-placement="top" title="Add to Cart"><i
-                                                        class="fas fa-plus-circle"></i></a>
-                                            </li>
-                                            <li>
-
-                                                <a href="signin.html" data-tooltip="tooltip" data-placement="top"
-                                                    title="Add to Wishlist"><i class="fas fa-heart"></i></a>
-                                            </li>
-                                            <li>
-
-                                                <a href="signin.html" data-tooltip="tooltip" data-placement="top"
-                                                    title="Email me When the price drops"><i class="fas fa-envelope"></i></a>
-                                            </li>
-                                        </ul>
+                                        <img class="aspect__img promotion__img"
+                                            src="{{ asset('store_assets/images/promo/promo-img-1.jpg') }}"
+                                            alt="">
                                     </div>
-                                </div>
+                                    <div class="promotion__content">
+                                        <div class="promotion__text-wrap">
+                                            <div class="promotion__text-1">
 
-                                <span class="product-o__category">
+                                                <span class="u-c-secondary">ACCESSORIES FOR YOUR EVERYDAY</span>
+                                            </div>
+                                            <div class="promotion__text-2">
 
-                                    <a href="shop-side-version-2.html">{{ $featuredProduct->category->name }}</a></span>
+                                                <span class="u-c-secondary">GET IN</span>
 
-                                <span class="product-o__name">
-
-                                    <a href="product-detail.html">{{ $featuredProduct->name }}</a></span>
-                                <div class="product-o__rating gl-rating-style"><i class="fas fa-star"></i><i
-                                        class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i
-                                        class="fas fa-star-half-alt"></i>
-
-                                    <span class="product-o__review">(23)</span>
-                                </div>
-
-                                <span class="product-o__price">{{ $featuredProduct->price }}
-
-                                    <span class="product-o__discount">$160.00</span></span>
+                                                <span class="u-c-brand">TOUCH</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </a>
                             </div>
-                        </div>
-                    @endforeach
+                        @endforeach
 
+
+                    </div>
                 </div>
             </div>
-        </div>
+        @endif
         <!--====== End - Section Content ======-->
     </div>
     <!--====== End - Section 6 ======-->
 
-
     <!--====== Section 7 ======-->
-    <div class="u-s-p-b-60">
-
-        <!--====== Section Content ======-->
-        <div class="section__content">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-4 col-md-4 col-sm-6 u-s-m-b-30">
-
-                        <a class="promotion" href="shop-side-version-2.html">
-                            <div class="aspect aspect--bg-grey aspect--square">
-
-                                <img class="aspect__img promotion__img"
-                                    src="{{ asset('store_assets/images/promo/promo-img-1.jpg') }}" alt="">
-                            </div>
-                            <div class="promotion__content">
-                                <div class="promotion__text-wrap">
-                                    <div class="promotion__text-1">
-
-                                        <span class="u-c-secondary">ACCESSORIES FOR YOUR EVERYDAY</span>
-                                    </div>
-                                    <div class="promotion__text-2">
-
-                                        <span class="u-c-secondary">GET IN</span>
-
-                                        <span class="u-c-brand">TOUCH</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="col-lg-4 col-md-4 col-sm-6 u-s-m-b-30">
-
-                        <a class="promotion" href="shop-side-version-2.html">
-                            <div class="aspect aspect--bg-grey aspect--square">
-
-                                <img class="aspect__img promotion__img"
-                                    src="{{ asset('store_assets/images/promo/promo-img-2.jpg') }}" alt="">
-                            </div>
-                            <div class="promotion__content">
-                                <div class="promotion__text-wrap">
-                                    <div class="promotion__text-1">
-
-                                        <span class="u-c-secondary">SMARTPHONE</span>
-
-                                        <span class="u-c-brand">2019</span>
-                                    </div>
-                                    <div class="promotion__text-2">
-
-                                        <span class="u-c-secondary">NEW ARRIVALS</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="col-lg-4 col-md-4 col-sm-6 u-s-m-b-30">
-
-                        <a class="promotion" href="shop-side-version-2.html">
-                            <div class="aspect aspect--bg-grey aspect--square">
-
-                                <img class="aspect__img promotion__img"
-                                    src="{{ asset('store_assets/images/promo/promo-img-3.jpg') }}" alt="">
-                            </div>
-                            <div class="promotion__content">
-                                <div class="promotion__text-wrap">
-                                    <div class="promotion__text-1">
-
-                                        <span class="u-c-secondary">DSLR FOR NEW GENERATION</span>
-                                    </div>
-                                    <div class="promotion__text-2">
-
-                                        <span class="u-c-brand">GET UP TO 10% OFF</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!--====== End - Section Content ======-->
-    </div>
-    <!--====== End - Section 7 ======-->
-
-
-    <!--====== Section 8 ======-->
-    <div class="u-s-p-b-60">
-
-        <!--====== Section Content ======-->
-        <div class="section__content">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-4 col-md-6 col-sm-6 u-s-m-b-30">
-                        <div class="column-product">
-
-                            <span class="column-product__title u-c-secondary u-s-m-b-25">SPECIAL
-                                PRODUCTS</span>
-                            <ul class="column-product__list">
-                                <li class="column-product__item">
-                                    <div class="product-l">
-                                        <div class="product-l__img-wrap">
-
-                                            <a class="aspect aspect--bg-grey aspect--square u-d-block product-l__link"
-                                                href="product-detail.html">
-
-                                                <img class="aspect__img"
-                                                    src="{{ asset('store_assets/images/product/electronic/product23.jpg') }}"
-                                                    alt=""></a>
-                                        </div>
-                                        <div class="product-l__info-wrap">
-
-                                            <span class="product-l__category">
-
-                                                <a href="shop-side-version-2.html">Electronics</a></span>
-
-                                            <span class="product-l__name">
-
-                                                <a href="product-detail.html">Razor Gear 15 Ram
-                                                    16GB</a></span>
-
-                                            <span class="product-l__price">$125.00</span>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li class="column-product__item">
-                                    <div class="product-l">
-                                        <div class="product-l__img-wrap">
-
-                                            <a class="aspect aspect--bg-grey aspect--square u-d-block product-l__link"
-                                                href="product-detail.html">
-
-                                                <img class="aspect__img"
-                                                    src="{{ asset('store_assets/images/product/electronic/product24.jpg') }}"
-                                                    alt=""></a>
-                                        </div>
-                                        <div class="product-l__info-wrap">
-
-                                            <span class="product-l__category">
-
-                                                <a href="shop-side-version-2.html">Electronics</a></span>
-
-                                            <span class="product-l__name">
-
-                                                <a href="product-detail.html">Razor Gear 13 Ram
-                                                    16GB</a></span>
-
-                                            <span class="product-l__price">$125.00</span>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li class="column-product__item">
-                                    <div class="product-l">
-                                        <div class="product-l__img-wrap">
-
-                                            <a class="aspect aspect--bg-grey aspect--square u-d-block product-l__link"
-                                                href="product-detail.html">
-
-                                                <img class="aspect__img"
-                                                    src="{{ asset('store_assets/images/product/electronic/product25.jpg') }}"
-                                                    alt=""></a>
-                                        </div>
-                                        <div class="product-l__info-wrap">
-
-                                            <span class="product-l__category">
-
-                                                <a href="shop-side-version-2.html">Electronics</a></span>
-
-                                            <span class="product-l__name">
-
-                                                <a href="product-detail.html">Razor Gear 15 Ram 8GB</a></span>
-
-                                            <span class="product-l__price">$125.00</span>
-                                        </div>
-                                    </div>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-6 col-sm-6 u-s-m-b-30">
-                        <div class="column-product">
-
-                            <span class="column-product__title u-c-secondary u-s-m-b-25">WEEKLY
-                                PRODUCTS</span>
-                            <ul class="column-product__list">
-                                <li class="column-product__item">
-                                    <div class="product-l">
-                                        <div class="product-l__img-wrap">
-
-                                            <a class="aspect aspect--bg-grey aspect--square u-d-block product-l__link"
-                                                href="product-detail.html">
-
-                                                <img class="aspect__img"
-                                                    src="{{ asset('store_assets/images/product/electronic/product26.jpg') }}"
-                                                    alt=""></a>
-                                        </div>
-                                        <div class="product-l__info-wrap">
-
-                                            <span class="product-l__category">
-
-                                                <a href="shop-side-version-2.html">Electronics</a></span>
-
-                                            <span class="product-l__name">
-
-                                                <a href="product-detail.html">Razor Gear 10 Ram
-                                                    16GB</a></span>
-
-                                            <span class="product-l__price">$125.00
-
-                                                <span class="product-l__discount">$160</span></span>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li class="column-product__item">
-                                    <div class="product-l">
-                                        <div class="product-l__img-wrap">
-
-                                            <a class="aspect aspect--bg-grey aspect--square u-d-block product-l__link"
-                                                href="product-detail.html">
-
-                                                <img class="aspect__img"
-                                                    src="{{ asset('store_assets/images/product/electronic/product27.jpg') }}"
-                                                    alt=""></a>
-                                        </div>
-                                        <div class="product-l__info-wrap">
-
-                                            <span class="product-l__category">
-
-                                                <a href="shop-side-version-2.html">Electronics</a></span>
-
-                                            <span class="product-l__name">
-
-                                                <a href="product-detail.html">Razor Gear 15 Ram 8GB</a></span>
-
-                                            <span class="product-l__price">$125.00
-
-                                                <span class="product-l__discount">$160</span></span>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li class="column-product__item">
-                                    <div class="product-l">
-                                        <div class="product-l__img-wrap">
-
-                                            <a class="aspect aspect--bg-grey aspect--square u-d-block product-l__link"
-                                                href="product-detail.html">
-
-                                                <img class="aspect__img"
-                                                    src="{{ asset('store_assets/images/product/electronic/product28.jpg') }}"
-                                                    alt=""></a>
-                                        </div>
-                                        <div class="product-l__info-wrap">
-
-                                            <span class="product-l__category">
-
-                                                <a href="shop-side-version-2.html">Electronics</a></span>
-
-                                            <span class="product-l__name">
-
-                                                <a href="product-detail.html">Razor Gear 15 Ultra Ram
-                                                    16GB</a></span>
-
-                                            <span class="product-l__price">$125.00
-
-                                                <span class="product-l__discount">$160</span></span>
-                                        </div>
-                                    </div>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-6 col-sm-6 u-s-m-b-30">
-                        <div class="column-product">
-
-                            <span class="column-product__title u-c-secondary u-s-m-b-25">FLASH PRODUCTS</span>
-                            <ul class="column-product__list">
-                                <li class="column-product__item">
-                                    <div class="product-l">
-                                        <div class="product-l__img-wrap">
-
-                                            <a class="aspect aspect--bg-grey aspect--square u-d-block product-l__link"
-                                                href="product-detail.html">
-
-                                                <img class="aspect__img"
-                                                    src="{{ asset('store_assets/images/product/electronic/product29.jpg') }}"
-                                                    alt=""></a>
-                                        </div>
-                                        <div class="product-l__info-wrap">
-                                            <div class="product-l__rating gl-rating-style"><i class="fas fa-star"></i><i
-                                                    class="fas fa-star"></i><i class="fas fa-star"></i><i
-                                                    class="far fa-star"></i><i class="far fa-star"></i></div>
-
-                                            <span class="product-l__category">
-
-                                                <a href="shop-side-version-2.html">Electronics</a></span>
-
-                                            <span class="product-l__name">
-
-                                                <a href="product-detail.html">Razor Gear 20 Ultra Ram
-                                                    16GB</a></span>
-
-                                            <span class="product-l__price">$125.00</span>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li class="column-product__item">
-                                    <div class="product-l">
-                                        <div class="product-l__img-wrap">
-
-                                            <a class="aspect aspect--bg-grey aspect--square u-d-block product-l__link"
-                                                href="product-detail.html">
-
-                                                <img class="aspect__img"
-                                                    src="{{ asset('store_assets/images/product/electronic/product30.jpg') }}"
-                                                    alt=""></a>
-                                        </div>
-                                        <div class="product-l__info-wrap">
-                                            <div class="product-l__rating gl-rating-style"><i class="fas fa-star"></i><i
-                                                    class="fas fa-star"></i><i class="fas fa-star"></i><i
-                                                    class="far fa-star"></i><i class="far fa-star"></i></div>
-
-                                            <span class="product-l__category">
-
-                                                <a href="shop-side-version-2.html">Electronics</a></span>
-
-                                            <span class="product-l__name">
-
-                                                <a href="product-detail.html">Razor Gear 11 Ultra Ram
-                                                    16GB</a></span>
-
-                                            <span class="product-l__price">$125.00</span>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li class="column-product__item">
-                                    <div class="product-l">
-                                        <div class="product-l__img-wrap">
-
-                                            <a class="aspect aspect--bg-grey aspect--square u-d-block product-l__link"
-                                                href="product-detail.html">
-
-                                                <img class="aspect__img"
-                                                    src="{{ asset('store_assets/images/product/electronic/product31.jpg') }}"
-                                                    alt=""></a>
-                                        </div>
-                                        <div class="product-l__info-wrap">
-                                            <div class="product-l__rating gl-rating-style"><i class="fas fa-star"></i><i
-                                                    class="fas fa-star"></i><i class="fas fa-star"></i><i
-                                                    class="far fa-star"></i><i class="far fa-star"></i></div>
-
-                                            <span class="product-l__category">
-
-                                                <a href="shop-side-version-2.html">Electronics</a></span>
-
-                                            <span class="product-l__name">
-
-                                                <a href="product-detail.html">Razor Gear 10 Ultra Ram
-                                                    16GB</a></span>
-
-                                            <span class="product-l__price">$125.00</span>
-                                        </div>
-                                    </div>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!--====== End - Section Content ======-->
-    </div>
-    <!--====== End - Section 8 ======-->
-
-
-    <!--====== Section 9 ======-->
     <div class="u-s-p-b-60">
 
         <!--====== Section Content ======-->
@@ -1881,7 +745,7 @@
         </div>
         <!--====== End - Section Content ======-->
     </div>
-    <!--====== End - Section 9 ======-->
+    <!--====== End - Section 7 ======-->
 
 
 @endsection

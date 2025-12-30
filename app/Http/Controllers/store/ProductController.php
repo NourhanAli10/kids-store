@@ -10,33 +10,25 @@ class ProductController extends Controller
 {
     public function showProduct(string $id, string $slug)
     {
-        $product = Product::findOrFail($id);
-        $colors = $product->colors;
+        $product = Product::with(['variants', 'offer', 'reviews'])->where('status', 'in_stock')->findOrFail($id);
         $relatedProducts = $this->RelatedProduct($product);
-        $reviews = $product->reviews;
-        $totalReviews = $reviews->count();
-        $reviewsAvg = $reviews->avg('rating');
-        return view('store.product-detail', compact('product',
-        'colors',
-        'reviews',
-        'relatedProducts',
-        'totalReviews',
-        'reviewsAvg'));
+        $totalReviews = $product->reviews()->count();
+        $reviewsAvg = $product->reviews()->avg('rating');
+        return view('store.product-details', [
+            'product' => $product,
+            'relatedProducts' => $relatedProducts,
+            'totalReviews' => $totalReviews,
+            'reviewsAvg' => $reviewsAvg,
+        ]);
     }
 
 
-    private function RelatedProduct($product) {
+    private function RelatedProduct($product)
+    {
         $relatedProducts = Product::where('category_id', $product->category_id)
-        ->where('id' ,'!=' ,$product->id)->limit(6)->get();
+            ->where('id', '!=', $product->id)->limit(6)->get();
         return $relatedProducts;
     }
-
-
-
-
-
-
-
 
 
 }
