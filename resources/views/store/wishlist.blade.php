@@ -2,7 +2,7 @@
 
 @section('content')
 
-
+@include('store.messages')
     <!--====== Section 2 ======-->
     <div class="u-s-p-b-60">
 
@@ -20,8 +20,7 @@
         </div>
         <!--====== End - Section Intro ======-->
 
-        @include('store.messages')
-        @if ($wishlistItems->isNotEmpty())
+        @if ($wishlistItems->count() > 0)
             <!--====== Section Content ======-->
             <div class="section__content">
                 <div class="container">
@@ -37,33 +36,29 @@
                                             <div class="w-r__img-wrap">
 
                                                 <img class="u-img-fluid"
-                                                    src="{{ asset('store_assets/images/products/' . $item->product->images->first()->url) }}"
+                                                    src="{{ asset('store_assets/images/products/' . $item->images->first()->url) }}"
                                                     alt="">
                                             </div>
                                             <div class="w-r__info">
 
                                                 <span class="w-r__name">
 
-                                                    <a href="product-detail.html">{{ $item->product->name }}</a></span>
+                                                    <a
+                                                        href="{{ route('home.product-details', [$item->id, $item->slug]) }}">{{ $item->name }}</a></span>
 
                                                 <span class="w-r__category">
 
-                                                    <a
-                                                        href="shop-side-version-2.html">{{ $item->product->category->name }}</a></span>
+                                                    <a href="#">{{ $item->category->name }}</a></span>
 
-                                                <span class="w-r__price">{{ $item->product->price }}
+                                                <span class="w-r__price">{{ $item->getFinalPrice() }} EGP </span>
 
-                                                    <span class="w-r__discount">$160.00</span></span>
+                                                <span class="w-r__discount"></span>
                                             </div>
                                         </div>
                                         <div class="w-r__wrap-2">
-
-                                            {{-- <a class="w-r__link btn--e-brand-b-2" data-modal="modal"
-                                                data-modal-id="#add-to-cart">ADD TO CART</a> --}}
-
                                             <a class="w-r__link btn--e-transparent-platinum-b-2"
-                                                href="{{ route('home.product-details', [$item->product->id, $item->product->slug]) }}">VIEW</a>
-                                            <form method="post" action="{{ route('wishlist.remove', $item->product->id) }}"
+                                                href="{{ route('home.product-details', [$item->id, $item->slug]) }}">VIEW</a>
+                                            <form method="post" action="{{ route('wishlist.remove', $item->id) }}"
                                                 class="d-inline">
                                                 @csrf
                                                 @method('DELETE')
@@ -79,7 +74,7 @@
                                 <div class="route-box">
                                     <div class="route-box__g">
 
-                                        <a class="route-box__link" href="{{ route('shop')}}"><i
+                                        <a class="route-box__link" href="{{ route('shop') }}"><i
                                                 class="fas fa-long-arrow-alt-left"></i>
 
                                             <span>CONTINUE SHOPPING</span></a>
@@ -91,7 +86,7 @@
                                             <button class="route-box__link border-0" type="submit">
                                                 {{-- <i class="fas fa-trash"></i> --}}
                                                 CLEAR WISHLIST
-                                             </button>
+                                            </button>
                                         </form>
 
 
@@ -118,7 +113,7 @@
 
                                     <span class="empty__text-1">No items found on your wishlist.</span>
 
-                                    <a class="empty__redirect-link btn--e-brand" href="{{ route('shop')}}">CONTINUE
+                                    <a class="empty__redirect-link btn--e-brand" href="{{ route('shop') }}">CONTINUE
                                         SHOPPING</a>
                                 </div>
                             </div>
